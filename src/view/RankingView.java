@@ -67,6 +67,7 @@ public class RankingView {
 		if (app.mouseX > 469 && 671 > app.mouseX && app.mouseY > 557 && 616 > app.mouseY) {
 			screen = 2;
 		}
+		controllermain.sortPlayers(filter);
 		return screen;
 	}
 
