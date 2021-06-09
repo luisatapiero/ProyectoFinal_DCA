@@ -1,9 +1,18 @@
 package controller;
 
+import model.PrehistoricRace;
+import processing.core.PApplet;
+
 public class ControllerMain {
 
-	public ControllerMain() {
-		// TODO Auto-generated constructor stub
+	private PrehistoricRace pr;
+
+	public ControllerMain(PApplet app) {
+		pr = PrehistoricRace.getInstance(app);
+	}
+
+	public void addPlayer(String nickname) {
+		pr.addPlayer(nickname);
 	}
 
 }
