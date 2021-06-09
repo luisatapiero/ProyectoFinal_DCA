@@ -6,6 +6,9 @@ public class Main extends PApplet {
 
 	private int screen;
 	private NicknameView nicknameview;
+	private HomeView homeview;
+	private InstructionsView instructionsview;
+	private RankingView rankingview;
 
 	public static void main(String[] args) {
 		PApplet.main(Main.class.getName());
@@ -20,6 +23,9 @@ public class Main extends PApplet {
 	public void setup() {
 		screen = 1;
 		nicknameview = new NicknameView(this);
+		homeview = new HomeView(this);
+		instructionsview = new InstructionsView(this);
+		rankingview = new RankingView(this);
 
 	}
 
@@ -33,8 +39,19 @@ public class Main extends PApplet {
 
 			break;
 		case 2:
+			homeview.drawScreen();
 			nicknameview.hideCp5();
-			
+
+			break;
+		case 3:
+			instructionsview.drawScreen();
+			nicknameview.hideCp5();
+
+			break;
+		case 4:
+			rankingview.drawScreen();
+			nicknameview.hideCp5();
+
 			break;
 
 		default:
@@ -46,17 +63,22 @@ public class Main extends PApplet {
 	}
 
 	public void mousePressed() {
-		
+
 		switch (screen) {
 		case 1:
-		
+
 			screen = nicknameview.switchScreen();
 
 			break;
 		case 2:
-			
+			screen = homeview.switchScreen();
 			break;
-
+		case 3:
+			screen = instructionsview.switchScreen();
+			break;
+		case 4:
+			screen = rankingview.switchScreen();
+			break;
 		default:
 			break;
 		}

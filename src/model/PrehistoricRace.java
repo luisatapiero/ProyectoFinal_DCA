@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import processing.core.PApplet;
 
@@ -29,5 +30,15 @@ public class PrehistoricRace {
 		players.add(p);
 		System.out.println(players.get(0).getNickname());
 	}
+
+	public void drawplayers() {
+		for (int i = 0; i < players.size(); i++) {
+			players.get(i).draw(274+(i*25));
+
+		}
+
+	}
+	
+
 
 }

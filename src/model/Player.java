@@ -4,9 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PFont;
 
-public class Player {
+public class Player implements Comparable<Player> {
 
 	private String nickname;
 	private LocalDateTime date;
@@ -14,7 +15,7 @@ public class Player {
 	private int score;
 	private int gameTime;
 	private PApplet app;
-	
+
 	private PFont montserrat;
 
 	public Player(String nickname, PApplet app) {
@@ -25,7 +26,23 @@ public class Player {
 		dateString = date.format(formatter);
 		score = 0;
 		gameTime = 0;
-		montserrat= app.createFont("Fonts/Montserrat-Regular.ttf", 18);
+		montserrat = app.createFont("Fonts/Montserrat-Regular.ttf", 18);
+	}
+
+	public void draw(int posy) {
+
+		app.textFont(montserrat);
+		app.textAlign(PConstants.CENTER);
+		app.text(nickname, 214, posy);
+		app.text(dateString, 695, posy);
+		app.text(gameTime + " s", 925, posy);
+		app.text(score, 452, posy);
+
+	}
+
+	@Override
+	public int compareTo(Player o) {
+		return nickname.compareTo(o.nickname);
 	}
 
 	public String getNickname() {
@@ -83,6 +100,5 @@ public class Player {
 	public void setMontserrat(PFont montserrat) {
 		this.montserrat = montserrat;
 	}
-	
 
 }

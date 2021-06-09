@@ -15,4 +15,8 @@ public class ControllerMain {
 		pr.addPlayer(nickname);
 	}
 
+	public void drawplayers() {
+		pr.drawplayers();
+	}
+
 }
