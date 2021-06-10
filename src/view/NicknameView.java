@@ -24,6 +24,9 @@ public class NicknameView {
 		nickname1 = app.loadImage("Img/Nickname1.png");
 		nickname2 = app.loadImage("Img/Nickname2.png");
 		montserrat = app.createFont("Fonts/Montserrat-Regular.ttf", 20);
+		
+		nickname1.resize(1200,750);
+		nickname2.resize(1200,750);
 
 		// inicializar cp5 y textfields
 		cp5 = new ControlP5(app);
@@ -31,7 +34,7 @@ public class NicknameView {
 		inputs[0] = "nickname";
 
 		// personalziar textfields
-		cp5.addTextfield(inputs[0]).setPosition(447, 434).setSize(246, 39).setAutoClear(true)
+		cp5.addTextfield(inputs[0]).setPosition(460, 458).setSize(246, 39).setAutoClear(true)
 				.setColorValue(app.color(255)).setColorActive(app.color(0, 0, 0, 1))
 				.setColorBackground(app.color(0, 0, 0, 1)).setColorForeground(app.color(0, 0, 0, 1))
 				.setColor(app.color(255, 255, 255, 255)).setColorCursor(app.color(0, 0, 0, 255)).setFont(montserrat)
@@ -41,7 +44,7 @@ public class NicknameView {
 	// método para pintar la pantalla home
 	public void drawScreen() {
 
-		if (app.mouseX > 479 && 677 > app.mouseX && app.mouseY > 557 && 612 > app.mouseY) {
+		if (app.mouseX > 497 && 702 > app.mouseX && app.mouseY > 598 && 651 > app.mouseY) {
 			app.image(nickname2, 0, 0);
 
 		} else {
@@ -54,7 +57,7 @@ public class NicknameView {
 	public int switchScreen() {
 		int screen = 1;
 
-		if (app.mouseX > 479 && 677 > app.mouseX && app.mouseY > 557 && 612 > app.mouseY) {
+		if (app.mouseX > 497 && 702 > app.mouseX && app.mouseY > 598 && 651 > app.mouseY) {
 			createUser();
 			emptyTextfields();
 			screen = 2;
