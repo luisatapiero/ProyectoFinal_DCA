@@ -9,6 +9,7 @@ public class Main extends PApplet {
 	private HomeView homeview;
 	private InstructionsView instructionsview;
 	private RankingView rankingview;
+	private MapView mapview;
 
 	public static void main(String[] args) {
 		PApplet.main(Main.class.getName());
@@ -26,6 +27,7 @@ public class Main extends PApplet {
 		homeview = new HomeView(this);
 		instructionsview = new InstructionsView(this);
 		rankingview = new RankingView(this);
+		mapview = new MapView(this);
 
 	}
 
@@ -50,6 +52,11 @@ public class Main extends PApplet {
 			break;
 		case 4:
 			rankingview.drawScreen();
+			nicknameview.hideCp5();
+
+			break;
+		case 5:
+			mapview.drawScreen();
 			nicknameview.hideCp5();
 
 			break;
