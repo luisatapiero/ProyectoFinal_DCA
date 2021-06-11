@@ -19,8 +19,9 @@ public class MapView {
 	}
 	
 	public void drawScreen() {
-			app.imageMode(PApplet.CENTER);
+			app.imageMode(PApplet.CORNER);
 			app.image(map, 0, 0);
+			app.imageMode(PApplet.CENTER);
 			controllerMain.drawObstacles();
 
 	}
