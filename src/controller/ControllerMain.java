@@ -22,5 +22,9 @@ public class ControllerMain {
 	public void sortPlayers(int filter) {
 pr.sortPlayers(filter);		
 	}
+	
+	public void drawObstacles() {
+		pr.drawObstacles();
+	}
 
 }

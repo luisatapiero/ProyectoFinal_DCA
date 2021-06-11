@@ -14,15 +14,24 @@ public class PrehistoricRace {
 	private DateComparator datecomparator;
 	private TimeComparator timecomparator;
 
+	private final float gridSize;
+	private Obstacles obstacles;
+	private ArrayList<Obstacles> obstaclesList;
+
 	private static PrehistoricRace onlyInstance;
 
 	public PrehistoricRace(PApplet app) {
 		this.app = app;
+		this.gridSize = 150;
+
 		players = new ArrayList<>();
+		obstaclesList = new ArrayList<>();
 
 		scorecomparator = new ScoreComparator();
 		datecomparator = new DateComparator();
 		timecomparator = new TimeComparator();
+
+		createObstacles("Data/GridMap.csv");
 
 		/* jugadores para probar ordenamientos */
 		Player n = new Player("pepe", app);
@@ -75,6 +84,87 @@ public class PrehistoricRace {
 		default:
 			break;
 		}
+	}
+
+	public void drawObstacles() {
+
+		//obstacles.draw();
+		//obstacles.updateMap();
+
+		for (Obstacles o : obstaclesList)
+			o.draw();
+	}
+
+	private void createObstacles(String filename) {
+		String[] lines = app.loadStrings(filename);
+		for (int row = 0; row < lines.length; row++) {
+			String[] values = app.split(lines[row], ";");
+			for (int col = 0; col < values.length; col++) {
+				if (values[col].equals("1")) {
+					Obstacles o = new Obstacles("Img/Blocks/Forest1.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					obstaclesList.add(o);
+				} else if (values[col].equals("2")) {
+					Obstacles o = new Obstacles("Img/Blocks/Forest2.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					obstaclesList.add(o);
+				} else if (values[col].equals("3")) {
+					Obstacles o = new Obstacles("Img/Blocks/Forest3.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					obstaclesList.add(o);
+				} else if (values[col].equals("4")) {
+					Obstacles o = new Obstacles("Img/Blocks/Desert1.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					obstaclesList.add(o);
+				}
+
+				else if (values[col].equals("5")) {
+					Obstacles o = new Obstacles("Img/Blocks/Desert2.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					obstaclesList.add(o);
+				} else if (values[col].equals("6")) {
+					Obstacles o = new Obstacles("Img/Blocks/Desert3.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					obstaclesList.add(o);
+				} else if (values[col].equals("7")) {
+					Obstacles o = new Obstacles("Img/Blocks/Polo1.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					obstaclesList.add(o);
+				}
+
+				else if (values[col].equals("8")) {
+					Obstacles o = new Obstacles("Img/Blocks/Polo2.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					obstaclesList.add(o);
+				} else if (values[col].equals("9")) {
+					Obstacles o = new Obstacles("Img/Blocks/Polo3.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					obstaclesList.add(o);
+				} else if (values[col].equals("10")) {
+					Obstacles o = new Obstacles("Img/Blocks/Cliff1.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					obstaclesList.add(o);
+				}
+
+				else if (values[col].equals("11")) {
+					Obstacles o = new Obstacles("Img/Blocks/Cliff2.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					obstaclesList.add(o);
+				}
+			}
+		}
+
 	}
 
 }
