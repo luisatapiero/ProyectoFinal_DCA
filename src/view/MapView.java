@@ -26,6 +26,12 @@ public class MapView {
 
 	}
 	
+	public void moveCaveman() {
+		controllerMain.moveCaveman();
+	}
+	
+
+	
 
 	 
 

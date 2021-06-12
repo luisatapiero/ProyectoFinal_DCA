@@ -1,5 +1,6 @@
 package view;
 
+import controller.ControllerMain;
 import processing.core.PApplet;
 
 public class Main extends PApplet {
@@ -86,6 +87,31 @@ public class Main extends PApplet {
 		case 4:
 			screen = rankingview.switchScreen();
 			break;
+		case 5:
+			
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void keyPressed() {
+		switch (screen) {
+		case 5:
+			mapview.moveCaveman();
+			break;
+
+		default:
+			break;
+		}
+	}
+	
+	public void keyReleased() {
+		switch (screen) {
+		case 5:
+			//mapview.stopCaveman();
+			break;
+
 		default:
 			break;
 		}

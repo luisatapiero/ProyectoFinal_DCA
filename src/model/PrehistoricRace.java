@@ -16,6 +16,7 @@ public class PrehistoricRace {
 
 	private final float gridSize;
 	private Obstacles obstacles;
+	private Caveman caveman;
 	private ArrayList<Obstacles> obstaclesList;
 
 	private static PrehistoricRace onlyInstance;
@@ -30,6 +31,7 @@ public class PrehistoricRace {
 		scorecomparator = new ScoreComparator();
 		datecomparator = new DateComparator();
 		timecomparator = new TimeComparator();
+		caveman = new Caveman(0, 565, 5, app);
 
 		createObstacles("Data/GridMap.csv");
 
@@ -88,8 +90,9 @@ public class PrehistoricRace {
 
 	public void drawObstacles() {
 
-		//obstacles.draw();
-		//obstacles.updateMap();
+		// obstacles.draw();
+		// obstacles.updateMap();
+		caveman.draw();
 
 		for (Obstacles o : obstaclesList)
 			o.draw();
@@ -166,5 +169,14 @@ public class PrehistoricRace {
 		}
 
 	}
+
+	public void moveMap() {
+		if (app.keyCode == app.RIGHT) {
+			caveman.setPosX(caveman.getPosX() + caveman.getSpeed());
+		} else if (app.keyCode == app.LEFT) {
+			caveman.setPosX(caveman.getPosX() - caveman.getSpeed());
+		}
+	}
+
 
 }

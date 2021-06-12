@@ -26,5 +26,10 @@ pr.sortPlayers(filter);
 	public void drawObstacles() {
 		pr.drawObstacles();
 	}
-
+	
+	public void moveCaveman() {
+		pr.moveMap();
+	}
+	
+	
 }
