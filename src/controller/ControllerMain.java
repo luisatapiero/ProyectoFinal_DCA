@@ -28,7 +28,7 @@ pr.sortPlayers(filter);
 	}
 	
 	public void moveCaveman() {
-		pr.moveMap();
+		pr.moveCaveman();
 	}
 	
 	

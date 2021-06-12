@@ -3,7 +3,7 @@ package model;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Caveman {
+public class Caveman implements Runnable{
 
 
 	private int posX;
@@ -27,6 +27,20 @@ public class Caveman {
 	public void draw() {
 		     app.image(cavemanImg, posX, posY);
 		     
+	}
+	
+	public void moveCaveman() {
+		if (app.keyCode == app.RIGHT) {
+			posX = posX + speed;
+		} else if (app.keyCode == app.LEFT) {
+			posX = posX - speed;
+		}
+	}
+	
+	@Override
+	public void run() {
+		moveCaveman();
+		
 	}
 
 	public int getPosX() {
@@ -52,6 +66,8 @@ public class Caveman {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
+
+	
 	
 	
 }

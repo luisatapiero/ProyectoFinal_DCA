@@ -170,12 +170,8 @@ public class PrehistoricRace {
 
 	}
 
-	public void moveMap() {
-		if (app.keyCode == app.RIGHT) {
-			caveman.setPosX(caveman.getPosX() + caveman.getSpeed());
-		} else if (app.keyCode == app.LEFT) {
-			caveman.setPosX(caveman.getPosX() - caveman.getSpeed());
-		}
+	public void moveCaveman() {
+		new Thread(caveman).start();
 	}
 
 
