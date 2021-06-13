@@ -11,19 +11,20 @@ public class MapView {
 	private ControllerMain controllerMain;
 
 
-
 	public MapView(PApplet app) {
 		this.app = app;
 		map = app.loadImage("Img/Map.png");
 		map.resize(13801, 750);
 		controllerMain = new ControllerMain(app);
+
 	}
 	
 	public void drawScreen() {
 			app.imageMode(PApplet.CORNER);
-			app.image(map, 0, 0);
+			app.image(map, controllerMain.getPosXbg(), 0);
 			app.imageMode(PApplet.CENTER);
 			controllerMain.drawObstacles();
+			controllerMain.scrollMap();
 
 	}
 	

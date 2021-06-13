@@ -12,7 +12,7 @@ public class Caveman extends Elements implements Runnable {
 
 	public Caveman(String filename, float posX, float posY, PApplet app) {
 		super(filename, posX, posY, app);
-		speed = (float) 5.5;
+		speed = (float) 3.5;
 		cavemanImg = app.loadImage(filename);
 		//this.posX = posX;
 		//this.posY = posY;

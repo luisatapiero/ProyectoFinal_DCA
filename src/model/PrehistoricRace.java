@@ -16,10 +16,9 @@ public class PrehistoricRace {
 
 	private final float gridSize;
 	private Caveman caveman;
-	private float viewX;
-	private float viewY;
 	private final float rightMargin;
 	private final float leftMargin;
+	private float posXbg;
 
 	private ArrayList<Obstacles> obstaclesList;
 
@@ -36,10 +35,9 @@ public class PrehistoricRace {
 		timecomparator = new TimeComparator();
 		caveman = new Caveman("Img/Character.png", 32, 565, app);
 
-		rightMargin = 670;
-		leftMargin = 30;
-		viewX = 0;
-		viewY = 0;
+		rightMargin = 600;
+		leftMargin = 90;
+		posXbg = 0;
 
 		createObstacles("Data/GridMap.csv");
 		System.out.println(obstaclesList.size());
@@ -98,10 +96,6 @@ public class PrehistoricRace {
 	}
 
 	public void drawObstacles() {
-
-		for (int i = 0; i < obstaclesList.size(); i++) {
-			scrollMap(i);
-		}
 
 		caveman.draw();
 
@@ -188,37 +182,39 @@ public class PrehistoricRace {
 		new Thread(caveman).start();
 	}
 
-	private void scrollMap(int o) {
+	public void scrollMap() {
 
-		// float rightBoundary = viewX + app.width - rightMargin;
+		
 
-		// viewX += (caveman.moveRight() - rightBoundary);
+			if (app.keyPressed == true) {
+				if (caveman.getPosX() > rightMargin && app.keyCode == app.RIGHT) {
+					System.out.println("Funcionooo");
+					for (int i = 0; i < obstaclesList.size(); i++) {
+					obstaclesList.get(i).advanceMap();
+					}
+					posXbg -= 4;
+				}
 
-		if (app.keyPressed == true) {
-			if (caveman.getPosX() > rightMargin && app.keyCode == app.RIGHT) {
-				System.out.println("Funcionooo");
-				obstaclesList.get(o).advanceMap();
-			}
+				// float leftBoundary = viewX + leftMargin;
 
-			// float leftBoundary = viewX + leftMargin;
-
-			if (caveman.getCenterX() < leftMargin && app.keyCode == app.LEFT) {
-				obstaclesList.get(o).goBackMap();
-			}
-		}
-
-	}
-
-	public boolean stopScrolling() {
-		for (int j = 0; j < obstaclesList.size(); j++) {
-
-			if (app.keyPressed == false) {
-				obstaclesList.get(j).setCenterX(obstaclesList.get(j).getCenterX());
-
+				if (caveman.getPosX() < leftMargin && app.keyCode == app.LEFT) {
+					for (int i = 0; i < obstaclesList.size(); i++) {
+					obstaclesList.get(i).goBackMap();
+					}
+					posXbg += 4;
+				
 			}
 		}
-
-		return false;
-
 	}
+
+	public float getPosXbg() {
+		return posXbg;
+	}
+
+	public void setPosXbg(float posXbg) {
+		this.posXbg = posXbg;
+	}
+	
+	
+
 }

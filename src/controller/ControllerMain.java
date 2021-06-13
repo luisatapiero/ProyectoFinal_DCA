@@ -26,9 +26,21 @@ public class ControllerMain {
 	public void drawObstacles() {
 		pr.drawObstacles();
 	}
+	
+	public void scrollMap() {
+		pr.scrollMap();
+	}
 
 	public void moveCaveman() {
 		pr.moveCaveman();
+	}
+	
+	public float getPosXbg() {
+		return pr.getPosXbg();
+	}
+
+	public void setPosXbg(float posXbg) {
+		this.pr.setPosXbg(posXbg);
 	}
 
 }

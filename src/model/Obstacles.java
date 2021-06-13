@@ -21,12 +21,12 @@ public class Obstacles extends Elements{
 		  }
 	  
 	  public void advanceMap(){
-	     centerX -= 5;
+	     centerX -= 4;
 	     ///centerY += changeY;
 	  }
 	  
 	  public void goBackMap() {
-		  centerX += 5;
+		  centerX += 4;
 	  }
 
 }
