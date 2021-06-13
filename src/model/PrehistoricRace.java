@@ -15,23 +15,30 @@ public class PrehistoricRace {
 	private TimeComparator timecomparator;
 
 	private final float gridSize;
-	private Obstacles obstacles;
 	private Caveman caveman;
+	private float viewX;
+	private final float rightMargin;
+	private final float leftMargin;
+
 	private ArrayList<Obstacles> obstaclesList;
 
 	private static PrehistoricRace onlyInstance;
 
 	public PrehistoricRace(PApplet app) {
 		this.app = app;
-		this.gridSize = 150;
+		gridSize = 150;
 
 		players = new ArrayList<>();
 		obstaclesList = new ArrayList<>();
-
 		scorecomparator = new ScoreComparator();
 		datecomparator = new DateComparator();
 		timecomparator = new TimeComparator();
-		caveman = new Caveman(0, 565, 5, app);
+		caveman = new Caveman("Img/Character.png", 5, 565, app);
+		
+		rightMargin = 600;
+		leftMargin = 90;
+		viewX = 0;
+
 
 		createObstacles("Data/GridMap.csv");
 
@@ -90,13 +97,18 @@ public class PrehistoricRace {
 
 	public void drawObstacles() {
 
-		// obstacles.draw();
-		// obstacles.updateMap();
+		scrollMap();
+		
 		caveman.draw();
 
-		for (Obstacles o : obstaclesList)
+		for(Obstacles o : obstaclesList) {
 			o.draw();
+			o.updateMap();
+		}
+			
 	}
+
+	
 
 	private void createObstacles(String filename) {
 		String[] lines = app.loadStrings(filename);
@@ -172,6 +184,28 @@ public class PrehistoricRace {
 
 	public void moveCaveman() {
 		new Thread(caveman).start();
+	}
+	
+	
+	
+	private void scrollMap() {
+		
+		float rightBoundary = viewX + app.width - rightMargin;
+		
+		if (caveman.moveRight() < rightBoundary) {
+			System.out.println("Funcionooo");
+			viewX += (caveman.moveRight() - rightBoundary);
+		}
+		
+		float leftBoundary = viewX + leftMargin;
+		
+		if (caveman.moveLeft() < leftBoundary) {
+			viewX -= (leftBoundary - caveman.moveLeft());
+		}
+		
+		
+		
+		//app.translate(-viewX,0);
 	}
 
 

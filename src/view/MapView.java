@@ -11,6 +11,7 @@ public class MapView {
 	private ControllerMain controllerMain;
 
 
+
 	public MapView(PApplet app) {
 		this.app = app;
 		map = app.loadImage("Img/Map.png");
@@ -28,6 +29,9 @@ public class MapView {
 	
 	public void moveCaveman() {
 		controllerMain.moveCaveman();
+		//posX -= 5;
+		
+		
 	}
 	
 
