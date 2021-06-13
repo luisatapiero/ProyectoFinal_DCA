@@ -1,6 +1,7 @@
 package model;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PImage;
 
 public class Elements {
@@ -10,12 +11,15 @@ public class Elements {
 	  protected float posX, posY;
 	  protected float centerX, centerY;
 	  protected  float changeX, changeY;
-	  //private float w, h;
+	  private float w, h;
 
 	public Elements(String filename, float posX, float posY, PApplet app) {
 		 	
-		 	
+		
+		 	this.posX = posX;
+		 	this.posY = posY;
 		 	this.app = app;
+		 	
 		    centerX = posX;
 		    centerY = posY;
 		    changeX = 0;
@@ -23,24 +27,60 @@ public class Elements {
 		    
 	}
 	
-	  public void updateMap(){
-	     centerX += changeX;
-	     centerY += changeY;
-	  }
+	
+	
+	 
+	  
+	 /* void setLeft(float left){
+		    centerX = left + 150/2;
+		  }
 	  
 	public float moveLeft() {
-		return centerX - app.width/2;
+		return centerX - 150/2;
 	}
 	
+	
+	
+	void setRight(float right){
+	    centerX = right - 150/2;
+	  }
+
+	
 	public float moveRight() {
-		return centerX + app.width/2;
+		return centerX + 150/2;
 		
-	}
+	}*/
+	  
+	
 
 
 	public float getCenterX() {
 		return centerX;
 	}
+
+
+	public float getPosX() {
+		return posX;
+	}
+
+
+
+	public void setPosX(float posX) {
+		this.posX = posX;
+	}
+
+
+
+	public float getPosY() {
+		return posY;
+	}
+
+
+
+	public void setPosY(float posY) {
+		this.posY = posY;
+	}
+
 
 
 	public void setCenterX(float centerX) {

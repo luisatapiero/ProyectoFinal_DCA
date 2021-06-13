@@ -19,5 +19,14 @@ public class Obstacles extends Elements{
 		     app.image(obstacleImg, centerX, centerY);
 		     obstacleImg.resize(150, 150);
 		  }
+	  
+	  public void advanceMap(){
+	     centerX -= 5;
+	     ///centerY += changeY;
+	  }
+	  
+	  public void goBackMap() {
+		  centerX += 5;
+	  }
 
 }

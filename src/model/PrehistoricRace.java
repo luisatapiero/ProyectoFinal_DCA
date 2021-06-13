@@ -17,6 +17,7 @@ public class PrehistoricRace {
 	private final float gridSize;
 	private Caveman caveman;
 	private float viewX;
+	private float viewY;
 	private final float rightMargin;
 	private final float leftMargin;
 
@@ -33,14 +34,15 @@ public class PrehistoricRace {
 		scorecomparator = new ScoreComparator();
 		datecomparator = new DateComparator();
 		timecomparator = new TimeComparator();
-		caveman = new Caveman("Img/Character.png", 5, 565, app);
-		
-		rightMargin = 600;
-		leftMargin = 90;
-		viewX = 0;
+		caveman = new Caveman("Img/Character.png", 32, 565, app);
 
+		rightMargin = 670;
+		leftMargin = 30;
+		viewX = 0;
+		viewY = 0;
 
 		createObstacles("Data/GridMap.csv");
+		System.out.println(obstaclesList.size());
 
 		/* jugadores para probar ordenamientos */
 		Player n = new Player("pepe", app);
@@ -97,18 +99,18 @@ public class PrehistoricRace {
 
 	public void drawObstacles() {
 
-		scrollMap();
-		
+		for (int i = 0; i < obstaclesList.size(); i++) {
+			scrollMap(i);
+		}
+
 		caveman.draw();
 
-		for(Obstacles o : obstaclesList) {
+		for (Obstacles o : obstaclesList) {
 			o.draw();
-			o.updateMap();
+			// scrollMap(o);
 		}
-			
-	}
 
-	
+	}
 
 	private void createObstacles(String filename) {
 		String[] lines = app.loadStrings(filename);
@@ -185,28 +187,38 @@ public class PrehistoricRace {
 	public void moveCaveman() {
 		new Thread(caveman).start();
 	}
-	
-	
-	
-	private void scrollMap() {
-		
-		float rightBoundary = viewX + app.width - rightMargin;
-		
-		if (caveman.moveRight() < rightBoundary) {
-			System.out.println("Funcionooo");
-			viewX += (caveman.moveRight() - rightBoundary);
+
+	private void scrollMap(int o) {
+
+		// float rightBoundary = viewX + app.width - rightMargin;
+
+		// viewX += (caveman.moveRight() - rightBoundary);
+
+		if (app.keyPressed == true) {
+			if (caveman.getPosX() > rightMargin && app.keyCode == app.RIGHT) {
+				System.out.println("Funcionooo");
+				obstaclesList.get(o).advanceMap();
+			}
+
+			// float leftBoundary = viewX + leftMargin;
+
+			if (caveman.getCenterX() < leftMargin && app.keyCode == app.LEFT) {
+				obstaclesList.get(o).goBackMap();
+			}
 		}
-		
-		float leftBoundary = viewX + leftMargin;
-		
-		if (caveman.moveLeft() < leftBoundary) {
-			viewX -= (leftBoundary - caveman.moveLeft());
-		}
-		
-		
-		
-		//app.translate(-viewX,0);
+
 	}
 
+	public boolean stopScrolling() {
+		for (int j = 0; j < obstaclesList.size(); j++) {
 
+			if (app.keyPressed == false) {
+				obstaclesList.get(j).setCenterX(obstaclesList.get(j).getCenterX());
+
+			}
+		}
+
+		return false;
+
+	}
 }

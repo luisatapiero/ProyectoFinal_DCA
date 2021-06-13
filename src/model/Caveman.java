@@ -14,13 +14,16 @@ public class Caveman extends Elements implements Runnable {
 		super(filename, posX, posY, app);
 		speed = (float) 5.5;
 		cavemanImg = app.loadImage(filename);
-		this.posX = posX;
-		this.posY = posY;
+		//this.posX = posX;
+		//this.posY = posY;
 		this.app = app;
+		
+		//centerX = 5; 
+		//centerY = 565;
 	}
 
 	public void draw() {
-		app.imageMode (PApplet.CENTER);
+		app.imageMode (PConstants.CENTER);
 		app.image(cavemanImg, posX, posY);
 
 	}
