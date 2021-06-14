@@ -292,7 +292,7 @@ public class PrehistoricRace {
 			
 			new Thread(caveman).start();
 			if (app.key == ' ') {
-				//isOnplatform(caveman, obstaclesList);
+				isOnplatform(caveman, obstaclesList);
 			}
 			//isOnplatform(caveman, obstaclesList);
 		//}
