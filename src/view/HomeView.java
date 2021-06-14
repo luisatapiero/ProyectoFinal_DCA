@@ -16,6 +16,11 @@ public class HomeView {
 		home2 = app.loadImage("Img/Home2.png");
 		home3 = app.loadImage("Img/Home3.png");
 		home4 = app.loadImage("Img/Home4.png");
+		
+		home1.resize(1200,750);
+		home2.resize(1200,750);
+		home3.resize(1200,750);
+		home4.resize(1200,750);
 
 		controllermain = new ControllerMain(app);
 	}
@@ -23,12 +28,14 @@ public class HomeView {
 	// método para pintar la pantalla home
 	public void drawScreen() {
 
-		if (app.mouseX > 443 && 685 > app.mouseX && app.mouseY > 156 && 399 > app.mouseY) {
+		if (app.mouseX > 458 && 711 > app.mouseX && app.mouseY > 167 && 428 > app.mouseY) {
 			app.image(home2, 0, 0);
-
-		} else if (app.mouseX > 829 && 968 > app.mouseX && app.mouseY > 215 && 356 > app.mouseY) {
+			
+		} else if (app.mouseX > 859 && 1007 > app.mouseX && app.mouseY > 235 && 388 > app.mouseY) {
 			app.image(home3, 0, 0);
-		} else if (app.mouseX > 158 && 298 > app.mouseX && app.mouseY > 215 && 356 > app.mouseY) {
+			
+		} else if (app.mouseX > 160 && 310 > app.mouseX && app.mouseY > 236 && 386 > app.mouseY) {
+			
 			app.image(home4, 0, 0);
 		} else {
 			app.image(home1, 0, 0);
@@ -41,14 +48,14 @@ public class HomeView {
 	public int switchScreen() {
 		int screen = 2;
 
-		if (app.mouseX > 443 && 685 > app.mouseX && app.mouseY > 156 && 399 > app.mouseY) {
+		if (app.mouseX > 458 && 711 > app.mouseX && app.mouseY > 167 && 428 > app.mouseY) {
 			screen = 5;
 
 		}
-		if (app.mouseX > 829 && 968 > app.mouseX && app.mouseY > 215 && 356 > app.mouseY) {
+		if (app.mouseX > 859 && 1007 > app.mouseX && app.mouseY > 235 && 388 > app.mouseY) {
 			screen = 3;
 		}
-		if (app.mouseX > 158 && 298 > app.mouseX && app.mouseY > 215 && 356 > app.mouseY) {
+		if (app.mouseX > 160 && 310 > app.mouseX && app.mouseY > 236 && 386 > app.mouseY) {
 			screen = 4;
 		}
 		return screen;

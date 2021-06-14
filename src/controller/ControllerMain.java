@@ -1,5 +1,7 @@
 package controller;
 
+import model.Caveman;
+import model.Obstacles;
 import model.PrehistoricRace;
 import processing.core.PApplet;
 
@@ -20,7 +22,37 @@ public class ControllerMain {
 	}
 
 	public void sortPlayers(int filter) {
-pr.sortPlayers(filter);		
+		pr.sortPlayers(filter);
 	}
 
+	public void drawObstacles() {
+		pr.drawObstacles();
+	}
+	
+	public void scrollMap() {
+		pr.scrollMap();
+	}
+
+	public void moveCaveman() {
+		pr.moveCaveman();
+	}
+	
+	public void releasedKey() {
+		pr.releasedKey();
+	}
+	
+	public float getPosXbg() {
+		return pr.getPosXbg();
+	}
+
+	public void setPosXbg(float posXbg) {
+		this.pr.setPosXbg(posXbg);
+	}
+
+	public void stopCaveman() {
+		pr.stopCaveman();
+		
+	}
+
+	
 }

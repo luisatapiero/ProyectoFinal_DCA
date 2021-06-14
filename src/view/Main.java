@@ -1,5 +1,7 @@
 package view;
 
+import controller.ControllerMain;
+import model.CavePlayer;
 import processing.core.PApplet;
 
 public class Main extends PApplet {
@@ -9,6 +11,8 @@ public class Main extends PApplet {
 	private HomeView homeview;
 	private InstructionsView instructionsview;
 	private RankingView rankingview;
+	private MapView mapview;
+	private CavePlayer jugador;
 
 	public static void main(String[] args) {
 		PApplet.main(Main.class.getName());
@@ -17,7 +21,7 @@ public class Main extends PApplet {
 	}
 
 	public void settings() {
-		size(1151, 701);
+		size(1200, 750);
 	}
 
 	public void setup() {
@@ -26,6 +30,7 @@ public class Main extends PApplet {
 		homeview = new HomeView(this);
 		instructionsview = new InstructionsView(this);
 		rankingview = new RankingView(this);
+		mapview = new MapView(this);
 
 	}
 
@@ -53,6 +58,12 @@ public class Main extends PApplet {
 			nicknameview.hideCp5();
 
 			break;
+		case 5:
+			jugador = new CavePlayer(32, 565,1);
+			mapview.drawScreen();
+			nicknameview.hideCp5();
+			mapview.time();
+			break;
 
 		default:
 			break;
@@ -79,9 +90,42 @@ public class Main extends PApplet {
 		case 4:
 			screen = rankingview.switchScreen();
 			break;
+		case 5:
+			
+			break;
 		default:
 			break;
 		}
+	}
+	
+	public void keyPressed() {
+		switch (screen) {
+		case 5:
+			mapview.moveCaveman();
+			break;
+
+		default:
+			break;
+		}
+	}
+	
+	public void keyReleased() {
+		switch (screen) {
+		case 5:
+			mapview.stopCaveman();
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	public CavePlayer getJugador() {
+		return jugador;
+	}
+
+	public void setJugador(CavePlayer jugador) {
+		this.jugador = jugador;
 	}
 
 }

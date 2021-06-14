@@ -15,13 +15,16 @@ public class InstructionsView {
 		instruction1 = app.loadImage("Img/Instructions1.png");
 		instruction2 = app.loadImage("Img/Instructions2.png");
 		
+		instruction1.resize(1200,750);
+		instruction2.resize(1200,750);
+		
 		controllermain = new ControllerMain(app);
 	}
 
 	// método para pintar la pantalla home
 		public void drawScreen() {
 
-			if (app.mouseX > 479 && 677 > app.mouseX && app.mouseY > 557 && 612 > app.mouseY) {
+			if (app.mouseX > 479 && 701 > app.mouseX && app.mouseY > 600 && 654 > app.mouseY) {
 				app.image(instruction2, 0, 0);
 
 			} else {
@@ -33,7 +36,7 @@ public class InstructionsView {
 		public int switchScreen() {
 			int screen = 3;
 
-			if (app.mouseX > 479 && 677 > app.mouseX && app.mouseY > 557 && 612 > app.mouseY) {
+			if (app.mouseX > 479 && 701 > app.mouseX && app.mouseY > 600 && 654 > app.mouseY) {
 			
 				screen = 2;
 			}
