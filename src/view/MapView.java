@@ -38,7 +38,7 @@ public class MapView {
 			app.image(map, controllerMain.getPosXbg(), 0);
 			app.imageMode(PApplet.CENTER);
 			controllerMain.drawObstacles();
-			controllerMain.scrollMap();
+			//controllerMain.scrollMap();
 			
 
 	}

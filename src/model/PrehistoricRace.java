@@ -42,7 +42,7 @@ public class PrehistoricRace {
 		caveman.centerX = 101;
 		caveman.centerY = 100;
 		// caveman.setCenterY(-10);
-		rightMargin = 600;
+		rightMargin = 300;
 		leftMargin = 100;
 		posXbg = 0;
 		jumpSignal = false;
@@ -113,6 +113,7 @@ public class PrehistoricRace {
 		
 
 		caveman.draw();
+		scrollMap();
 		resolvePlatformCollisions(caveman, obstaclesList);
 		
 		checkPowers();
@@ -143,8 +144,8 @@ public class PrehistoricRace {
 
 	// metodo para las colisones
 
-	public ArrayList<Elements> checkCollisionList(Caveman c, ArrayList<Obstacles> list) {
-		ArrayList<Elements> collision_list = new ArrayList<Elements>();
+	public ArrayList<Obstacles> checkCollisionList(Caveman c, ArrayList<Obstacles> list) {
+		ArrayList<Obstacles> collision_list = new ArrayList<Obstacles>();
 		for (Obstacles p : list) {
 			if (checkCollision(c, p))
 				collision_list.add(p);
@@ -157,20 +158,18 @@ public class PrehistoricRace {
 
 		
 		c.changeY += caveman.getGravity();
-		
-		System.out.println(c.changeY);
 
 		c.centerY += c.changeY;
 		
-		ArrayList<Elements> col_list = checkCollisionList(c, walls);
+		ArrayList<Obstacles> col_list = checkCollisionList(c, walls);
 
 		if (col_list.size() > 0) {
-			Elements collided = col_list.get(0);
+			Obstacles collided = col_list.get(0);
 			if (c.changeY > 0) {
 				c.setBottom(collided.getTop(150), 71);
 			} else if (c.changeY < 0) {
 				c.setTop(collided.getBottom(150), 71);
-			}
+			} 
 			c.changeY = 0;
 		}
 
@@ -178,14 +177,21 @@ public class PrehistoricRace {
 		col_list = checkCollisionList(c, walls);
 
 		if (col_list.size() > 0) {
-			Elements collided = col_list.get(0);
+			System.out.println(col_list.size());
+			Obstacles collided = col_list.get(0);
 			if (c.changeX > 0) {
 				c.setRight(collided.getLeft(150), 66);
+				
 			} else if (c.changeX < 0) {
 				c.setLeft(collided.getRight(150), 66);
+				
 			}
 
 		}
+		if (col_list.size() == 1) {
+			col_list.remove(0);
+		}
+		
 
 	}
 	
@@ -194,7 +200,7 @@ public class PrehistoricRace {
 	public boolean isOnplatform(Caveman c, ArrayList<Obstacles> walls) {
 
 			c.centerY +=5;
-			ArrayList<Elements> col_list = checkCollisionList(c,walls);
+			ArrayList<Obstacles> col_list = checkCollisionList(c,walls);
 			c.centerY -= 5;
 			if(col_list.size() > 0) {
 				c.setOnplatform(true);
