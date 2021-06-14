@@ -13,6 +13,7 @@ public class Caveman extends Elements implements Runnable {
     private int velocidad;
     private int jump;
     private boolean jumPower;
+    private int control;
     public Caveman(String filename, float posX, float posY, PApplet app) {
         super(filename, posX, posY, app);
         speed = (float) 3.5;
@@ -23,14 +24,16 @@ public class Caveman extends Elements implements Runnable {
         speedPower = false;
         jumPower = false;
         velocidad = 1;
+        control = 1;
         
-        jump = 155;
+        jump = 155 * control;
         //centerX = 5; 
         //centerY = 565;
     }
 
     public void draw() {
-    	app.circle(322, 557, 40);
+    	//Circle circulo = new Circle();
+    	app.g.circle(322, 557, 40);
         app.imageMode (PConstants.CENTER);
         app.image(cavemanImg, posX, posY);
         if(LeDi(322,40)) {
@@ -39,6 +42,7 @@ public class Caveman extends Elements implements Runnable {
         	speedPower = true;
         	jumPower = true;
         	velocidad++;
+        	control = 2;
         	
         
         	
@@ -61,6 +65,8 @@ public class Caveman extends Elements implements Runnable {
             }
 
         }else if(app.keyCode == PConstants.UP) {
+        		int inicial = (int) posY;
+        		if(posY > inicial - jump) {
         		posY = posY - jump / 2;
         		Thread.sleep(250);
         		posY = posY - jump / 2;
@@ -71,6 +77,7 @@ public class Caveman extends Elements implements Runnable {
         		Thread.sleep(250);
         	}
         }
+    }
     
     
     public boolean LeDi(int a, int b) {
