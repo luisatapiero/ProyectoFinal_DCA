@@ -61,16 +61,16 @@ public class Main extends PApplet {
 			mapview.drawScreen();
 			nicknameview.hideCp5();
 			mapview.time();
-			mapview.comprobationGameOver(screen);
+			//screen = mapview.switchScreen();
 			break;
 			
 			
 		case 6:
 			
-			mapview.drawScreen();
+			//mapview.drawScreen();
 			nicknameview.hideCp5();
-			mapview.time();
-			mapview.comprobationGameOver(screen);
+			//mapview.time();
+			//screen = mapview.switchScreen();
 			break;
 
 		default:

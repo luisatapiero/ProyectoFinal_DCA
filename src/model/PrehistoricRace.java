@@ -346,8 +346,6 @@ public class PrehistoricRace {
 	private void checkPowers() {
 		for (int i = 0; i < powerUpList.size(); i++) {
 			if (caveman.LeDi(powerUpList.get(i).getCenterX(), 60)) {
-				//caveman.setSpeedPower(true);
-				//caveman.setVelocidad(caveman.getVelocidad() + 1);
 				powerUpList.remove(i);
 				System.out.println("le diiiii");
 			}
@@ -358,17 +356,16 @@ public class PrehistoricRace {
 
 	// -----------------------------------------------------------------------------------------------------------------------------------------
 	//METODO DE GAME OVER
-	public void comprobationGameOver(int screen) {
-		// TODO Auto-generated method stub
-	//	screen = 5;
+	public boolean comprobationGameOver() {
+
 		
 		if(caveman.centerY > 800 ) {
 			app.text("defeat", 500,500);
 			app.fill(0);
-			screen = 6;
+			return true;
 		}
 		
-		return;
+		return false;
 	}
 	
 	

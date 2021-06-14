@@ -16,9 +16,8 @@ public class Caveman extends Elements implements Runnable {
 	
 	
 	private int velocidad;
-	private int jump;
 	private boolean jumPower;
-	private int control;
+;
 
 	public Caveman(String filename, float posX, float posY, PApplet app) {
 		super(filename, posX, posY, app);
@@ -120,14 +119,6 @@ public class Caveman extends Elements implements Runnable {
 
 	public void setGravity(float gravity) {
 		this.gravity = gravity;
-	}
-
-	public boolean isJumPower() {
-		return jumPower;
-	}
-
-	public void setJumPower(boolean jumPower) {
-		this.jumPower = jumPower;
 	}
 	
 
