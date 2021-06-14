@@ -39,10 +39,10 @@ public class PrehistoricRace {
 		// jugador = new CavePlayer(91, 565, 1);
 
 		caveman = new Caveman("Img/Character.png", 101, 20, app);
-		caveman.centerX = 100;
+		caveman.centerX = 101;
 		caveman.centerY = 100;
 		// caveman.setCenterY(-10);
-		rightMargin = 700;
+		rightMargin = 600;
 		leftMargin = 100;
 		posXbg = 0;
 		jumpSignal = false;
@@ -292,14 +292,13 @@ public class PrehistoricRace {
 	}
 
 	public void moveCaveman() {
-		//if (caveman.getCenterX() < rightMargin + 3 && caveman.getCenterX() > leftMargin - 1) {
+		if (caveman.getCenterX() > leftMargin && caveman.getCenterX() < rightMargin) {
 			
 			new Thread(caveman).start();
-			
-			
-		
 			//isOnplatform(caveman, obstaclesList);
-		//}
+		}
+		
+		caveman.jumpCaveman();
 
 	}
 
@@ -355,11 +354,11 @@ public class PrehistoricRace {
 	//METODO DE GAME OVER
 	public void comprobationGameOver(int screen) {
 		// TODO Auto-generated method stub
-		 screen = 5;
+		 //screen = 5;
 		
 		if(caveman.centerY >=300) {
-			app.text("defeat", 370,408);
-			screen = 4;
+			//app.text("defeat", 370,408);
+			screen = 6;
 		}
 		
 		return;

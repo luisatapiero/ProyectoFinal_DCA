@@ -30,7 +30,7 @@ public class Caveman extends Elements implements Runnable {
 		changeX = 0;
 		changeY = 0;
 		gravity = (float) 5;
-		jumpSpeed = 20;
+		jumpSpeed = 10;
 		isOnplatform = false;
 		
 		
@@ -62,23 +62,15 @@ public class Caveman extends Elements implements Runnable {
 			} else if (app.keyCode == PConstants.LEFT) {
 			
 				changeX  = -speed;
-			} else if (app.key == ' ') {
-				changeY = -jumpSpeed;
-			}
+			} 
 			
-			/*else if (app.keyCode == PConstants.UP) {
-			int inicial = (int) posY;
-			if (posY > inicial - jump) {
-				posY = posY - jump / 2;
-				Thread.sleep(250);
-				posY = posY - jump / 2;
-				Thread.sleep(250);
-				posY = posY + jump / 2;
-				Thread.sleep(250);
-				posY = posY + jump / 2;
-				Thread.sleep(250);
-			}*/
-		
+	}
+	
+	
+	public void jumpCaveman() {
+		if (app.key == ' ') {
+			changeY = -jumpSpeed;
+		}
 	}
 		
 	
