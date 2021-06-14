@@ -18,6 +18,7 @@ public class PrehistoricRace {
 	private final float rightMargin;
 	private final float leftMargin;
 	private float posXbg;
+	private boolean jumpSignal;
 
 	private ArrayList<Obstacles> obstaclesList;
 	private ArrayList<PowerUp> powerUpList;
@@ -44,6 +45,7 @@ public class PrehistoricRace {
 		rightMargin = 0;
 		leftMargin = 0;
 		posXbg = 0;
+		jumpSignal = false;
 
 		createObstacles("Data/GridMap.csv");
 		//System.out.println(powerUpList.size());
@@ -190,21 +192,23 @@ public class PrehistoricRace {
 //--------------SALTO------------------------------------------------------------------------------------------------
 	
 	public boolean isOnplatform(Caveman c, ArrayList<Obstacles> walls) {
-		System.out.println("isOnPlatform está funcionando");
-		c.centerY +=5;
-		ArrayList<Elements> col_list = checkCollisionList(c,walls);
-		c.centerY -= 5;
-		if(col_list.size() > 0) {
-			c.setOnplatform(true);
-			return true;
-		}else {
-			c.setOnplatform(false);
-			System.out.println(isOnplatform(c,walls));
-			return false;
+
+			c.centerY +=5;
+			ArrayList<Elements> col_list = checkCollisionList(c,walls);
+			c.centerY -= 5;
+			if(col_list.size() > 0) {
+				c.setOnplatform(true);
+				return true;
+			}else {
+				c.setOnplatform(false);
+				System.out.println(isOnplatform(c,walls));
+				return false;
+			}
 		}
+
 		
 		
-	}
+	
 
 //-------------------------------------------------------------------------------------------------------------------
 	private void createObstacles(String filename) {
@@ -291,6 +295,9 @@ public class PrehistoricRace {
 		//if (caveman.getCenterX() < rightMargin + 3 && caveman.getCenterX() > leftMargin - 1) {
 			
 			new Thread(caveman).start();
+			
+			
+			
 			if (app.key == ' ') {
 				isOnplatform(caveman, obstaclesList);
 			}

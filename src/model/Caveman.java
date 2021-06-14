@@ -30,7 +30,7 @@ public class Caveman extends Elements implements Runnable {
 		changeX = 0;
 		changeY = 0;
 		gravity = (float) 5;
-		jumpSpeed = 14;
+		jumpSpeed = 20;
 		isOnplatform = false;
 		
 		
