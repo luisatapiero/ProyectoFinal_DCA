@@ -351,6 +351,21 @@ public class PrehistoricRace {
 
 	}
 
+	// -----------------------------------------------------------------------------------------------------------------------------------------
+	//METODO DE GAME OVER
+	public void comprobationGameOver(int screen) {
+		// TODO Auto-generated method stub
+		 screen = 5;
+		
+		if(caveman.centerY >=300) {
+			app.text("defeat", 370,408);
+			screen = 4;
+		}
+		
+		return;
+	}
+	
+	
 	public float getPosXbg() {
 		return posXbg;
 	}

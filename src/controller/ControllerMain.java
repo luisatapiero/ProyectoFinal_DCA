@@ -53,6 +53,9 @@ public class ControllerMain {
 		pr.stopCaveman();
 		
 	}
+	public void comprobationGameOver(int screen) {
+		pr.comprobationGameOver(screen);
+	}
 
 	
 }

@@ -45,9 +45,12 @@ public class MapView {
 	
 	public void moveCaveman() {
 		controllerMain.moveCaveman();
-		//posX -= 5;
+		//posX -= 5;	
 		
-		
+	}
+	
+	public void comprobationGameOver(int screen) {
+		controllerMain.comprobationGameOver(screen);
 	}
 
 	public void stopCaveman() {
@@ -87,4 +90,5 @@ public class MapView {
 
 	//--------------------------------------------------------------------------------------------------------------------------	 
 
+	
 }
