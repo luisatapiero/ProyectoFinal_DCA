@@ -21,7 +21,7 @@ public class InstructionsView {
 		controllermain = new ControllerMain(app);
 		
 	
-			runtimeException2();
+			
 		
 		
 	}
@@ -48,15 +48,5 @@ public class InstructionsView {
 			return screen;
 		}
 		
-		public void runtimeException2() {
-			try {
-				
-				int suma = 12/0;
-				
-			} catch (Exception e) {
-				//e.printStackTrace();
-				System.out.println("2. Arithmetic exception");
-			}
-			
-		}
+		
 }

@@ -10,6 +10,7 @@ public class MapView implements Runnable {
 	private PApplet app;
 	private PImage map;
 	private ControllerMain controllerMain;
+	private PImage noexiste;
 //----------------------------------------------------------------------------------------------------------------------------------
 
 	private int mil = 0;
@@ -30,7 +31,8 @@ public class MapView implements Runnable {
 		montserrat = app.createFont("Fonts/Montserrat-Regular.ttf", 20);
 		
 		runtimeException1 ();
-		
+		runtimeException2();
+		runtimeException3 ();		
 	}
 	
 	private void runtimeException1 (){
@@ -42,9 +44,34 @@ public class MapView implements Runnable {
 		
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				System.out.println("Exception Number Format Exception");
+				System.out.println("1. Exception Number Format Exception");
 			}
 	}
+	
+	public void runtimeException2() {
+		try {
+			
+			int suma = 12/0;
+			
+		} catch (Exception e) {
+			//e.printStackTrace();
+			System.out.println("2. Arithmetic exception");
+		}
+		
+	}
+	
+	private void runtimeException3 (){
+		
+		
+		try {
+			app.image(noexiste, 2, 2);
+	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("3. Exception Null Pointer Exception");
+		}
+}
 	
 
 	public void drawScreen() {
