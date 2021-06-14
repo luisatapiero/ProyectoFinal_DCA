@@ -28,18 +28,22 @@ public class MapView implements Runnable {
 		controllerMain = new ControllerMain(app);
 
 		montserrat = app.createFont("Fonts/Montserrat-Regular.ttf", 20);
-		try {
-			runtimeException1 ();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("Exception Number Format Exception");
-		}
+		
+		runtimeException1 ();
+		
 	}
 	
-	private void runtimeException1 () throws Exception{
+	private void runtimeException1 (){
 
-			String nonExisted = null;
-			Integer.parseInt(nonExisted);
+			
+			try {
+				String nonExisted = null;
+				Integer.parseInt(nonExisted);
+		
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				System.out.println("Exception Number Format Exception");
+			}
 	}
 	
 

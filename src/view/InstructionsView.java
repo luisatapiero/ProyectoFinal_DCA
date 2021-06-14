@@ -19,6 +19,11 @@ public class InstructionsView {
 		instruction2.resize(1200,750);
 		
 		controllermain = new ControllerMain(app);
+		
+	
+			runtimeException2();
+		
+		
 	}
 
 	// método para pintar la pantalla home
@@ -41,5 +46,17 @@ public class InstructionsView {
 				screen = 2;
 			}
 			return screen;
+		}
+		
+		public void runtimeException2() {
+			try {
+				
+				int suma = 12/0;
+				
+			} catch (Exception e) {
+				//e.printStackTrace();
+				System.out.println("2. Arithmetic exception");
+			}
+			
 		}
 }
