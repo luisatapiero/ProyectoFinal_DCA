@@ -13,11 +13,9 @@ public class Caveman extends Elements implements Runnable {
 	private float gravity;
 	private float jumpSpeed;
 	private boolean isOnplatform;
-	
-	
+
 	private int velocidad;
-	private boolean jumPower;
-;
+	private boolean jumPower;;
 
 	public Caveman(String filename, float posX, float posY, PApplet app) {
 		super(filename, posX, posY, app);
@@ -31,14 +29,12 @@ public class Caveman extends Elements implements Runnable {
 		gravity = (float) 5;
 		jumpSpeed = 10;
 		isOnplatform = false;
-		
-		
-		/*speedPower = false;
-		jumPower = false;
-		velocidad = 1;
-		control = 1;
 
-		jump = 155 * control;*/
+		/*
+		 * speedPower = false; jumPower = false; velocidad = 1; control = 1;
+		 * 
+		 * jump = 155 * control;
+		 */
 		// centerX = 5;
 		// centerY = 565;
 	}
@@ -47,47 +43,45 @@ public class Caveman extends Elements implements Runnable {
 
 		app.imageMode(PConstants.CENTER);
 		app.image(cavemanImg, centerX, centerY);
-		//System.out.println(centerX+" "+centerY);
+		// System.out.println(centerX+" "+centerY);
 
 	}
-	
 
-	private void directionCaveman(){
+	private void directionCaveman() {
 		gravity = (float) 0.6;
 		if (app.keyCode == PConstants.RIGHT) {
-			
-				changeX  = speed;
-				
-			} else if (app.keyCode == PConstants.LEFT) {
-			
-				changeX  = -speed;
-			} 
-			
+
+			changeX = speed;
+
+		} else if (app.keyCode == PConstants.LEFT) {
+
+			changeX = -speed;
+		}
+
 	}
-	
-	
+
 	public void jumpCaveman() {
 		if (app.key == ' ') {
 			changeY = -jumpSpeed;
 		}
 	}
-		
-	
-	
+
 	public void releasedKey() {
 		if (app.keyCode == PConstants.RIGHT) {
 			changeX = 0;
 		}
-		
+
 		if (app.keyCode == PConstants.LEFT) {
 			changeX = 0;
 		}
 	}
 
-	public boolean LeDi(float a, int b) {
+	public boolean LeDi(float a, int b, float c) {
 		float temp = a - b;
+		float temp2 = c - b;
 		int prueba = (int) (temp - centerX);
-		if (prueba < 4 && centerX < a) {
+		int prueba2 = (int) (temp2 - centerY);
+		if (prueba < 4 && centerX < a && prueba2 < 4 && centerX < a) {
 			return true;
 
 		} else {
@@ -97,9 +91,8 @@ public class Caveman extends Elements implements Runnable {
 
 	@Override
 	public void run() {
-		
-			directionCaveman();
-	
+
+		directionCaveman();
 
 		try {
 
@@ -110,8 +103,6 @@ public class Caveman extends Elements implements Runnable {
 		}
 
 	}
-	
-	
 
 	public float getGravity() {
 		return gravity;
@@ -120,7 +111,6 @@ public class Caveman extends Elements implements Runnable {
 	public void setGravity(float gravity) {
 		this.gravity = gravity;
 	}
-	
 
 	public boolean isSpeedPower() {
 		return speedPower;
@@ -145,8 +135,5 @@ public class Caveman extends Elements implements Runnable {
 	public void setOnplatform(boolean isOnplatform) {
 		this.isOnplatform = isOnplatform;
 	}
-
-	
-	
 
 }
