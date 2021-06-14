@@ -179,7 +179,12 @@ public class PrehistoricRace {
 	}
 
 	public void moveCaveman() {
-		new Thread(caveman).start();
+		if (caveman.getPosX() < rightMargin+3 && caveman.getPosX() > leftMargin-1) {
+			new Thread(caveman).start();
+	
+		}
+		
+		
 	}
 
 	public void scrollMap() {
@@ -187,21 +192,21 @@ public class PrehistoricRace {
 		
 
 			if (app.keyPressed == true) {
-				if (caveman.getPosX()/2 > rightMargin && app.keyCode == app.RIGHT) {
+				if (caveman.getPosX() > rightMargin && app.keyCode == app.RIGHT) {
 					System.out.println("Funcionooo");
 					for (int i = 0; i < obstaclesList.size(); i++) {
 					obstaclesList.get(i).advanceMap();
 					}
-					posXbg -= 3;
+					posXbg -= 4;
 				}
 
 				// float leftBoundary = viewX + leftMargin;
 
-				if (caveman.getPosX()/2 < leftMargin && app.keyCode == app.LEFT) {
+				if (caveman.getPosX() < leftMargin && app.keyCode == app.LEFT) {
 					for (int i = 0; i < obstaclesList.size(); i++) {
 					obstaclesList.get(i).goBackMap();
 					}
-					posXbg += 3;
+					posXbg += 4;
 				
 			}
 		}
