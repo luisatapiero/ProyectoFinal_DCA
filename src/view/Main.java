@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControllerMain;
+import model.CavePlayer;
 import processing.core.PApplet;
 
 public class Main extends PApplet {
@@ -11,6 +12,7 @@ public class Main extends PApplet {
 	private InstructionsView instructionsview;
 	private RankingView rankingview;
 	private MapView mapview;
+	private CavePlayer jugador;
 
 	public static void main(String[] args) {
 		PApplet.main(Main.class.getName());
@@ -57,6 +59,7 @@ public class Main extends PApplet {
 
 			break;
 		case 5:
+			jugador = new CavePlayer(32, 565,1);
 			mapview.drawScreen();
 			nicknameview.hideCp5();
 
@@ -115,6 +118,14 @@ public class Main extends PApplet {
 		default:
 			break;
 		}
+	}
+
+	public CavePlayer getJugador() {
+		return jugador;
+	}
+
+	public void setJugador(CavePlayer jugador) {
+		this.jugador = jugador;
 	}
 
 }

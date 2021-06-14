@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import processing.core.PApplet;
+import view.Main;
 
 public class PrehistoricRace {
 
@@ -19,6 +20,8 @@ public class PrehistoricRace {
 	private final float rightMargin;
 	private final float leftMargin;
 	private float posXbg;
+	private CavePlayer jugador;
+	private static Main main;
 
 	private ArrayList<Obstacles> obstaclesList;
 
@@ -27,14 +30,16 @@ public class PrehistoricRace {
 	public PrehistoricRace(PApplet app) {
 		this.app = app;
 		gridSize = 150;
+		//main = new Main();
 
 		players = new ArrayList<>();
 		obstaclesList = new ArrayList<>();
 		scorecomparator = new ScoreComparator();
 		datecomparator = new DateComparator();
 		timecomparator = new TimeComparator();
-		caveman = new Caveman("Img/Character.png", 32, 565, app);
-
+		jugador = new CavePlayer(32,565,1);
+		caveman = new Caveman("Img/Character.png", jugador.getPosX(), jugador.getPosY(), app);
+		//main.setJugador(jugador);
 		rightMargin = 600;
 		leftMargin = 90;
 		posXbg = 0;

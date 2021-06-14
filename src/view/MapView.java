@@ -25,6 +25,7 @@ public class MapView {
 			app.imageMode(PApplet.CENTER);
 			controllerMain.drawObstacles();
 			controllerMain.scrollMap();
+			
 
 	}
 	
