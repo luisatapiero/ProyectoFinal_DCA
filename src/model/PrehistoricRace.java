@@ -360,10 +360,11 @@ public class PrehistoricRace {
 	//METODO DE GAME OVER
 	public void comprobationGameOver(int screen) {
 		// TODO Auto-generated method stub
-		 //screen = 5;
+	//	screen = 5;
 		
-		if(caveman.centerY >=300) {
-			//app.text("defeat", 370,408);
+		if(caveman.centerY > 800 ) {
+			app.text("defeat", 500,500);
+			app.fill(0);
 			screen = 6;
 		}
 		
