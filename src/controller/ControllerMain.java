@@ -43,4 +43,9 @@ public class ControllerMain {
 		this.pr.setPosXbg(posXbg);
 	}
 
+	public void stopCaveman() {
+		pr.stopCaveman();
+		
+	}
+
 }

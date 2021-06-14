@@ -28,14 +28,31 @@ public class Caveman extends Elements implements Runnable {
 
 	}
 
+	
 	public void moveCaveman() {
 		if (app.keyCode == PConstants.RIGHT) {
 			posX = posX + speed;
 		} else if (app.keyCode == PConstants.LEFT) {
 			posX = posX - speed;
+		} else if (app.keyCode == PConstants.UP) {
+			posY = posY - speed;
+		}else if (app.keyCode == PConstants.DOWN) {
+			posY = posY + speed;
 		}
 	}
-
+	
+	
+	public void stopCaveman() {
+		if (app.keyCode == PConstants.RIGHT) {
+			posX =0;
+		} else if (app.keyCode == PConstants.LEFT) {
+			posX = 0;
+		} else if (app.keyCode == PConstants.UP) {
+			posY = 0;
+		}else if (app.keyCode == PConstants.DOWN) {
+			posY = 0;
+		}
+	}
 	@Override
 	public void run() {
 		moveCaveman();

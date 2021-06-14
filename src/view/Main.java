@@ -109,7 +109,7 @@ public class Main extends PApplet {
 	public void keyReleased() {
 		switch (screen) {
 		case 5:
-			//mapview.stopCaveman();
+			mapview.stopCaveman();
 			break;
 
 		default:

@@ -34,6 +34,11 @@ public class MapView {
 		
 		
 	}
+
+	public void stopCaveman() {
+		controllerMain.stopCaveman();
+		
+	}
 	
 
 	
