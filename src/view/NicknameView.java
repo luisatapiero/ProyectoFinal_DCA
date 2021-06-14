@@ -3,6 +3,7 @@ package view;
 import controlP5.ControlP5;
 import controlP5.Textfield;
 import controller.ControllerMain;
+import exceptions.EmptyNicknameException;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -24,9 +25,9 @@ public class NicknameView {
 		nickname1 = app.loadImage("Img/Nickname1.png");
 		nickname2 = app.loadImage("Img/Nickname2.png");
 		montserrat = app.createFont("Fonts/Montserrat-Regular.ttf", 20);
-		
-		nickname1.resize(1200,750);
-		nickname2.resize(1200,750);
+
+		nickname1.resize(1200, 750);
+		nickname2.resize(1200, 750);
 
 		// inicializar cp5 y textfields
 		cp5 = new ControlP5(app);
@@ -58,17 +59,28 @@ public class NicknameView {
 		int screen = 1;
 
 		if (app.mouseX > 497 && 702 > app.mouseX && app.mouseY > 598 && 651 > app.mouseY) {
-			createUser();
-			emptyTextfields();
-			screen = 2;
+			try {
+				createUser();
+				emptyTextfields();
+				screen = 2;
+			} catch (EmptyNicknameException a) {
+				System.err.println(a.getMessage());
+			}
+
 		}
 		return screen;
 	}
 
 	// capturar el nickname y crear usuario
-	public void createUser() {
+	public void createUser() throws EmptyNicknameException {
 		nickname = cp5.get(Textfield.class, "nickname").getText();
-		controllermain.addPlayer(nickname);
+		if (nickname.equals("")) {
+			throw new EmptyNicknameException();
+		} else {
+			controllermain.addPlayer(nickname);
+
+		}
+
 	}
 
 	public void hideCp5() {
@@ -83,6 +95,6 @@ public class NicknameView {
 
 	public void emptyTextfields() {
 		cp5.get(Textfield.class, "nickname").setText("");
-		
+
 	}
 }
