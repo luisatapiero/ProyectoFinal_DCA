@@ -39,14 +39,14 @@ public class Caveman extends Elements implements Runnable {
         if(LeDi(322,40)) {
         	System.out.println("le diiiii");
         	//Aqui se coloca la imagen en la misma posicion del circulo
+        	//12 es Speed
+        	//13 es Jump boost
         	speedPower = true;
         	jumPower = true;
         	velocidad++;
-        	control = 2;
-        	
-        
-        	
+        	control++;	
         }
+        
 
     }
 
