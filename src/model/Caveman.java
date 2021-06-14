@@ -53,7 +53,7 @@ public class Caveman extends Elements implements Runnable {
 	}
 	
 
-	private void directionCaveman(boolean isOnPlatforms){
+	private void directionCaveman(){
 		gravity = (float) 0.6;
 		if (app.keyCode == PConstants.RIGHT) {
 			
@@ -62,7 +62,7 @@ public class Caveman extends Elements implements Runnable {
 			} else if (app.keyCode == PConstants.LEFT) {
 			
 				changeX  = -speed;
-			} else if (app.key == ' ' && isOnPlatforms) {
+			} else if (app.key == ' ') {
 				changeY = -jumpSpeed;
 			}
 			
@@ -95,8 +95,8 @@ public class Caveman extends Elements implements Runnable {
 
 	public boolean LeDi(float a, int b) {
 		float temp = a - b;
-		int prueba = (int) (temp - posX);
-		if (prueba < 4 && posX < a) {
+		int prueba = (int) (temp - centerX);
+		if (prueba < 4 && centerX < a) {
 			return true;
 
 		} else {
@@ -107,7 +107,7 @@ public class Caveman extends Elements implements Runnable {
 	@Override
 	public void run() {
 		
-			directionCaveman(isOnplatform);
+			directionCaveman();
 	
 
 		try {

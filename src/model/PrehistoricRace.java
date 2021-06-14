@@ -38,12 +38,12 @@ public class PrehistoricRace {
 		timecomparator = new TimeComparator();
 		// jugador = new CavePlayer(91, 565, 1);
 
-		caveman = new Caveman("Img/Character.png", 92, 20, app);
+		caveman = new Caveman("Img/Character.png", 101, 20, app);
 		caveman.centerX = 100;
 		caveman.centerY = 100;
 		// caveman.setCenterY(-10);
-		rightMargin = 0;
-		leftMargin = 0;
+		rightMargin = 700;
+		leftMargin = 100;
 		posXbg = 0;
 		jumpSignal = false;
 
@@ -297,10 +297,7 @@ public class PrehistoricRace {
 			new Thread(caveman).start();
 			
 			
-			
-			if (app.key == ' ') {
-				isOnplatform(caveman, obstaclesList);
-			}
+		
 			//isOnplatform(caveman, obstaclesList);
 		//}
 
@@ -344,8 +341,8 @@ public class PrehistoricRace {
 	private void checkPowers() {
 		for (int i = 0; i < powerUpList.size(); i++) {
 			if (caveman.LeDi(powerUpList.get(i).getCenterX(), 60)) {
-				caveman.setSpeedPower(true);
-				caveman.setVelocidad(caveman.getVelocidad() + 1);
+				//caveman.setSpeedPower(true);
+				//caveman.setVelocidad(caveman.getVelocidad() + 1);
 				powerUpList.remove(i);
 				System.out.println("le diiiii");
 			}
