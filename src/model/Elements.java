@@ -27,7 +27,46 @@ public class Elements {
 		    
 	}
 	
+//-------------------------------------------------------------------------------------------------------------------
+	//LADOS PARA COLISIONES
+	
+	public	void setRight(float right){
+	    centerX = right - w/2;
+	  }
+public float getRight() {
+	   return centerX+ w/2;
+}
 
+
+public	void setLeft(float left){
+    centerX = left + w/2;
+  }
+
+public float getLeft() {
+return centerX-w/2;
+}	
+
+
+   public void setTop(float top) {
+	   centerX = top + h/2;  
+   }
+   public float getTop() {
+	   return centerX- h/2;
+}
+   
+   
+ public void setBottom(float bottom) {
+	 centerX = bottom - h/2;
+   }
+	
+ public float getBottom() {
+	   return centerX+ h/2;
+}
+	
+//-----------------------------------------------------------------------------------------------------------------------------------
+	
+	
+	
 
 	public float getCenterX() {
 		return centerX;

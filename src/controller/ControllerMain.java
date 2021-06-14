@@ -1,5 +1,7 @@
 package controller;
 
+import model.Caveman;
+import model.Obstacles;
 import model.PrehistoricRace;
 import processing.core.PApplet;
 
@@ -48,4 +50,5 @@ public class ControllerMain {
 		
 	}
 
+	
 }

@@ -117,7 +117,36 @@ public class PrehistoricRace {
 		}
 
 	}
+	
+	//-------------------------------------------------------------------------------------------------------------------
+	
+	//COLISIONES
+	
+	public boolean checkCollision( Caveman o2, Obstacles o1) {  //se supone que deben chacer el cavernicola con el obstaculo
+		boolean hNoverlap = o1.getRight()<= o2.getLeft()||o1.getRight()>= o2.getLeft();
+		boolean VNoverlap = o1.getBottom()<= o2.getTop()||o1.getBottom()>= o2.getTop();
+		if(hNoverlap|| VNoverlap) {
+			return false;
+		}else {
+			return true;
+		}
+		
+	} 
+	
+	//metodo para las colisones
+	
+public ArrayList <Obstacles> checkCollisionList(Caveman s,ArrayList<Obstacles>list){
+		ArrayList<Obstacles>collision_list=new ArrayList<Obstacles>();
+		for(Obstacles p: list) {
+			if(checkCollision(s,p))
+				collision_list.add(p);
+		}
+		
+		return collision_list;
+	}
 
+
+//-------------------------------------------------------------------------------------------------------------------
 	private void createObstacles(String filename) {
 		String[] lines = app.loadStrings(filename);
 		for (int row = 0; row < lines.length; row++) {
