@@ -27,31 +27,6 @@ public class Elements {
 		    
 	}
 	
-	
-	
-	 
-	  
-	 /* void setLeft(float left){
-		    centerX = left + 150/2;
-		  }
-	  
-	public float moveLeft() {
-		return centerX - 150/2;
-	}
-	
-	
-	
-	void setRight(float right){
-	    centerX = right - 150/2;
-	  }
-
-	
-	public float moveRight() {
-		return centerX + 150/2;
-		
-	}*/
-	  
-	
 
 
 	public float getCenterX() {

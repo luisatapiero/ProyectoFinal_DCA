@@ -21,27 +21,33 @@ public class PrehistoricRace {
 	private final float leftMargin;
 	private float posXbg;
 	private CavePlayer jugador;
+	private static Main main;
+
 	private ArrayList<Obstacles> obstaclesList;
+	private ArrayList<PowerUp> powerUpList;
 
 	private static PrehistoricRace onlyInstance;
-	
+
 	public PrehistoricRace(PApplet app) {
 		this.app = app;
 		gridSize = 150;
+		// main = new Main();
 
 		players = new ArrayList<>();
 		obstaclesList = new ArrayList<>();
+		powerUpList = new ArrayList<>();
 		scorecomparator = new ScoreComparator();
 		datecomparator = new DateComparator();
 		timecomparator = new TimeComparator();
-		jugador = new CavePlayer(32,565,1);
+		jugador = new CavePlayer(90, 565, 1);
 		caveman = new Caveman("Img/Character.png", jugador.getPosX(), jugador.getPosY(), app);
+		// main.setJugador(jugador);
 		rightMargin = 600;
 		leftMargin = 90;
 		posXbg = 0;
 
 		createObstacles("Data/GridMap.csv");
-		System.out.println(obstaclesList.size());
+		System.out.println(powerUpList.size());
 
 		/* jugadores para probar ordenamientos */
 		Player n = new Player("pepe", app);
@@ -98,17 +104,18 @@ public class PrehistoricRace {
 
 	public void drawObstacles() {
 
-		caveman.draw();
+		for (PowerUp p : powerUpList) {
+			p.draw();
+			// scrollMap(o);
+		}
 
+		caveman.draw();
+		checkPowers();
 		for (Obstacles o : obstaclesList) {
 			o.draw();
 			// scrollMap(o);
 		}
 
-	}
-	
-	public ArrayList<Obstacles> getobstaculo(){
-		return obstaclesList;
 	}
 
 	private void createObstacles(String filename) {
@@ -136,9 +143,7 @@ public class PrehistoricRace {
 					o.setCenterX(gridSize / 2 + col * gridSize);
 					o.setCenterY(gridSize / 2 + row * gridSize);
 					obstaclesList.add(o);
-				}
-
-				else if (values[col].equals("5")) {
+				} else if (values[col].equals("5")) {
 					Obstacles o = new Obstacles("Img/Blocks/Desert2.png", 0, 0, app);
 					o.setCenterX(gridSize / 2 + col * gridSize);
 					o.setCenterY(gridSize / 2 + row * gridSize);
@@ -177,6 +182,16 @@ public class PrehistoricRace {
 					o.setCenterX(gridSize / 2 + col * gridSize);
 					o.setCenterY(gridSize / 2 + row * gridSize);
 					obstaclesList.add(o);
+				} else if (values[col].equals("12")) {
+					PowerUp o = new PowerUp("Img/Blocks/Chili.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					powerUpList.add(o);
+				} else if (values[col].equals("13")) {
+					PowerUp o = new PowerUp("Img/Blocks/mushroom.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					powerUpList.add(o);
 				}
 			}
 		}
@@ -184,39 +199,57 @@ public class PrehistoricRace {
 	}
 
 	public void moveCaveman() {
-		if (caveman.getPosX() < rightMargin+3 && caveman.getPosX() > leftMargin-1) {
+		if (caveman.getPosX() < rightMargin + 3 && caveman.getPosX() > leftMargin - 1) {
 			new Thread(caveman).start();
-	
+
 		}
-		
-		
+
 	}
 
 	public void scrollMap() {
 
-		
-
-			if (app.keyPressed == true) {
-				if (caveman.getPosX() > rightMargin && app.keyCode == app.RIGHT) {
-					System.out.println("Funcionooo");
-					for (int i = 0; i < obstaclesList.size(); i++) {
+		if (app.keyPressed == true) {
+			if (caveman.getPosX() > rightMargin && app.keyCode == app.RIGHT) {
+				for (int i = 0; i < obstaclesList.size(); i++) {
 					obstaclesList.get(i).advanceMap();
-					}
-					posXbg -= 4;
+				}
+				posXbg -= 4;
+				//posXbg -= 4 * caveman.getVelocidad();
+
+				for (PowerUp p : powerUpList) {
+					p.advanceMap();
+				}
+			}
+
+
+			if (caveman.getPosX() < leftMargin && app.keyCode == app.LEFT) {
+				for (int i = 0; i < obstaclesList.size(); i++) {
+					obstaclesList.get(i).goBackMap();
+				}
+				
+				posXbg += 4;
+				//posXbg += 4 * caveman.getVelocidad();
+
+				for (PowerUp p : powerUpList) {
+					p.goBackMap();
 				}
 
-				// float leftBoundary = viewX + leftMargin;
-
-				if (caveman.getPosX() < leftMargin && app.keyCode == app.LEFT) {
-					for (int i = 0; i < obstaclesList.size(); i++) {
-					obstaclesList.get(i).goBackMap();
-					}
-					posXbg += 4;
-				
 			}
 		}
 	}
-	
+
+	private void checkPowers() {
+		for (int i = 0; i < powerUpList.size(); i++) {
+			if (caveman.LeDi(powerUpList.get(i).getCenterX(), 60)) {
+				caveman.setSpeedPower(true);
+				caveman.setVelocidad(caveman.getVelocidad() + 1);
+				powerUpList.remove(i);
+				System.out.println("le diiiii");
+			}
+
+		}
+
+	}
 
 	public float getPosXbg() {
 		return posXbg;
@@ -229,7 +262,5 @@ public class PrehistoricRace {
 	public void stopCaveman() {
 		new Thread(caveman).start();
 	}
-	
-	
 
 }
