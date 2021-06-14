@@ -4,6 +4,7 @@ import controlP5.ControlP5;
 import controlP5.Textfield;
 import controller.ControllerMain;
 import exceptions.EmptyNicknameException;
+import exceptions.LongNicknameException;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -65,6 +66,9 @@ public class NicknameView {
 				screen = 2;
 			} catch (EmptyNicknameException a) {
 				System.err.println(a.getMessage());
+			} catch (LongNicknameException b) {
+				emptyTextfields();
+				System.err.println(b.getMessage());
 			}
 
 		}
@@ -72,10 +76,12 @@ public class NicknameView {
 	}
 
 	// capturar el nickname y crear usuario
-	public void createUser() throws EmptyNicknameException {
+	public void createUser() throws EmptyNicknameException, LongNicknameException {
 		nickname = cp5.get(Textfield.class, "nickname").getText();
 		if (nickname.equals("")) {
 			throw new EmptyNicknameException();
+		} else if (nickname.length() > 10) {
+			throw new LongNicknameException();
 		} else {
 			controllermain.addPlayer(nickname);
 
