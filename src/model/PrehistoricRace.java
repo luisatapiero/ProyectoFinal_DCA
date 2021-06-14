@@ -154,7 +154,7 @@ public class PrehistoricRace {
 	public void resolvePlatformCollisions(Caveman c, ArrayList<Obstacles> walls) {
 
 		
-		c.centerY += caveman.getGravity();
+		c.changeY += caveman.getGravity();
 		
 		System.out.println(c.changeY);
 
