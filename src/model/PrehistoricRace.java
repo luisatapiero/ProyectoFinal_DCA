@@ -21,16 +21,13 @@ public class PrehistoricRace {
 	private final float leftMargin;
 	private float posXbg;
 	private CavePlayer jugador;
-	private static Main main;
-
 	private ArrayList<Obstacles> obstaclesList;
 
 	private static PrehistoricRace onlyInstance;
-
+	
 	public PrehistoricRace(PApplet app) {
 		this.app = app;
 		gridSize = 150;
-		//main = new Main();
 
 		players = new ArrayList<>();
 		obstaclesList = new ArrayList<>();
@@ -39,7 +36,6 @@ public class PrehistoricRace {
 		timecomparator = new TimeComparator();
 		jugador = new CavePlayer(32,565,1);
 		caveman = new Caveman("Img/Character.png", jugador.getPosX(), jugador.getPosY(), app);
-		//main.setJugador(jugador);
 		rightMargin = 600;
 		leftMargin = 90;
 		posXbg = 0;
@@ -109,6 +105,10 @@ public class PrehistoricRace {
 			// scrollMap(o);
 		}
 
+	}
+	
+	public ArrayList<Obstacles> getobstaculo(){
+		return obstaclesList;
 	}
 
 	private void createObstacles(String filename) {

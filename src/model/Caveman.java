@@ -11,7 +11,8 @@ public class Caveman extends Elements implements Runnable {
     private PApplet app;
     private boolean speedPower;
     private int velocidad;
-
+    private int jump;
+    private boolean jumPower;
     public Caveman(String filename, float posX, float posY, PApplet app) {
         super(filename, posX, posY, app);
         speed = (float) 3.5;
@@ -20,8 +21,10 @@ public class Caveman extends Elements implements Runnable {
         //this.posY = posY;
         this.app = app;
         speedPower = false;
+        jumPower = false;
         velocidad = 1;
-
+        
+        jump = 155;
         //centerX = 5; 
         //centerY = 565;
     }
@@ -34,14 +37,16 @@ public class Caveman extends Elements implements Runnable {
         	System.out.println("le diiiii");
         	//Aqui se coloca la imagen en la misma posicion del circulo
         	speedPower = true;
+        	jumPower = true;
         	velocidad++;
         	
+        
         	
         }
 
     }
 
-    public void moveCaveman(int a) {
+    public void moveCaveman(int a) throws InterruptedException {
         if (app.keyCode == PConstants.RIGHT) {
             if (speedPower == true) {
                 posX = posX + speed * a;
@@ -55,8 +60,18 @@ public class Caveman extends Elements implements Runnable {
                 posX = posX - speed;
             }
 
+        }else if(app.keyCode == PConstants.UP) {
+        		posY = posY - jump / 2;
+        		Thread.sleep(250);
+        		posY = posY - jump / 2;
+        		Thread.sleep(250);
+        		posY = posY + jump / 2;
+        		Thread.sleep(250);
+        		posY = posY + jump / 2;
+        		Thread.sleep(250);
+        	}
         }
-    }
+    
     
     public boolean LeDi(int a, int b) {
     	int temp = a - b;
@@ -74,7 +89,12 @@ public class Caveman extends Elements implements Runnable {
 
     @Override
     public void run() {
-        moveCaveman(velocidad);
+        try {
+			moveCaveman(velocidad);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
         try {
 
