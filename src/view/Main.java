@@ -62,7 +62,7 @@ public class Main extends PApplet {
 			jugador = new CavePlayer(32, 565,1);
 			mapview.drawScreen();
 			nicknameview.hideCp5();
-
+			mapview.time();
 			break;
 
 		default:
