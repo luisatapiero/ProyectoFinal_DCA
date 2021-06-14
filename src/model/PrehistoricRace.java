@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import processing.core.PApplet;
-import view.Main;
-
 public class PrehistoricRace {
 
 	private PApplet app;
@@ -20,8 +18,6 @@ public class PrehistoricRace {
 	private final float rightMargin;
 	private final float leftMargin;
 	private float posXbg;
-	private CavePlayer jugador;
-	private static Main main;
 
 	private ArrayList<Obstacles> obstaclesList;
 	private ArrayList<PowerUp> powerUpList;
@@ -39,15 +35,18 @@ public class PrehistoricRace {
 		scorecomparator = new ScoreComparator();
 		datecomparator = new DateComparator();
 		timecomparator = new TimeComparator();
-		jugador = new CavePlayer(90, 565, 1);
-		caveman = new Caveman("Img/Character.png", jugador.getPosX(), jugador.getPosY(), app);
-		// main.setJugador(jugador);
-		rightMargin = 600;
-		leftMargin = 90;
+		// jugador = new CavePlayer(91, 565, 1);
+
+		caveman = new Caveman("Img/Character.png", 92, 20, app);
+		caveman.centerX = 100;
+		caveman.centerY = 100;
+		// caveman.setCenterY(-10);
+		rightMargin = 0;
+		leftMargin = 0;
 		posXbg = 0;
 
 		createObstacles("Data/GridMap.csv");
-		System.out.println(powerUpList.size());
+		//System.out.println(powerUpList.size());
 
 		/* jugadores para probar ordenamientos */
 		Player n = new Player("pepe", app);
@@ -108,43 +107,104 @@ public class PrehistoricRace {
 			p.draw();
 			// scrollMap(o);
 		}
+		
+		
 
 		caveman.draw();
+		resolvePlatformCollisions(caveman, obstaclesList);
+		
 		checkPowers();
 		for (Obstacles o : obstaclesList) {
 			o.draw();
 			// scrollMap(o);
 		}
+		
+
+		
 
 	}
-	
-	//-------------------------------------------------------------------------------------------------------------------
-	
-	//COLISIONES
-	
-	public boolean checkCollision( Caveman o2, Obstacles o1) {  //se supone que deben chacer el cavernicola con el obstaculo
-		boolean hNoverlap = o1.getRight()<= o2.getLeft()||o1.getRight()>= o2.getLeft();
-		boolean VNoverlap = o1.getBottom()<= o2.getTop()||o1.getBottom()>= o2.getTop();
-		if(hNoverlap|| VNoverlap) {
+
+	// -------------------------------------------------------------------------------------------------------------------
+
+	// COLISIONES
+
+	public boolean checkCollision(Caveman c, Obstacles o1) { // se supone que deben chacer el cavernicola con el
+																// obstaculo
+		boolean hNoverlap = c.getRight(66) <= o1.getLeft(150) || c.getLeft(66) >= o1.getRight(150);
+		boolean VNoverlap = c.getBottom(71) <= o1.getTop(150) || c.getTop(71) >= o1.getBottom(150);
+		if (hNoverlap || VNoverlap) {
 			return false;
-		}else {
+		} else {
 			return true;
 		}
-		
-	} 
-	
-	//metodo para las colisones
-	
-public ArrayList <Obstacles> checkCollisionList(Caveman s,ArrayList<Obstacles>list){
-		ArrayList<Obstacles>collision_list=new ArrayList<Obstacles>();
-		for(Obstacles p: list) {
-			if(checkCollision(s,p))
+	}
+
+	// metodo para las colisones
+
+	public ArrayList<Elements> checkCollisionList(Caveman c, ArrayList<Obstacles> list) {
+		ArrayList<Elements> collision_list = new ArrayList<Elements>();
+		for (Obstacles p : list) {
+			if (checkCollision(c, p))
 				collision_list.add(p);
 		}
-		
+
 		return collision_list;
 	}
 
+	public void resolvePlatformCollisions(Caveman c, ArrayList<Obstacles> walls) {
+
+		
+		c.centerY += caveman.getGravity();
+		
+		System.out.println(c.changeY);
+
+		c.centerY += c.changeY;
+		
+		ArrayList<Elements> col_list = checkCollisionList(c, walls);
+
+		if (col_list.size() > 0) {
+			Elements collided = col_list.get(0);
+			if (c.changeY > 0) {
+				c.setBottom(collided.getTop(150), 71);
+			} else if (c.changeY < 0) {
+				c.setTop(collided.getBottom(150), 71);
+			}
+			c.changeY = 0;
+		}
+
+		c.centerX += c.changeX;
+		col_list = checkCollisionList(c, walls);
+
+		if (col_list.size() > 0) {
+			Elements collided = col_list.get(0);
+			if (c.changeX > 0) {
+				c.setRight(collided.getLeft(150), 66);
+			} else if (c.changeX < 0) {
+				c.setLeft(collided.getRight(150), 66);
+			}
+
+		}
+
+	}
+	
+//--------------SALTO------------------------------------------------------------------------------------------------
+	
+	public boolean isOnplatform(Caveman c, ArrayList<Obstacles> walls) {
+		System.out.println("isOnPlatform está funcionando");
+		c.centerY +=5;
+		ArrayList<Elements> col_list = checkCollisionList(c,walls);
+		c.centerY -= 5;
+		if(col_list.size() > 0) {
+			c.setOnplatform(true);
+			return true;
+		}else {
+			c.setOnplatform(false);
+			System.out.println(isOnplatform(c,walls));
+			return false;
+		}
+		
+		
+	}
 
 //-------------------------------------------------------------------------------------------------------------------
 	private void createObstacles(String filename) {
@@ -228,36 +288,43 @@ public ArrayList <Obstacles> checkCollisionList(Caveman s,ArrayList<Obstacles>li
 	}
 
 	public void moveCaveman() {
-		if (caveman.getPosX() < rightMargin + 3 && caveman.getPosX() > leftMargin - 1) {
+		//if (caveman.getCenterX() < rightMargin + 3 && caveman.getCenterX() > leftMargin - 1) {
+			
 			new Thread(caveman).start();
+			if (app.key == ' ') {
+				//isOnplatform(caveman, obstaclesList);
+			}
+			//isOnplatform(caveman, obstaclesList);
+		//}
 
-		}
+	}
 
+	public void releasedKey() {
+		caveman.releasedKey();
 	}
 
 	public void scrollMap() {
 
 		if (app.keyPressed == true) {
-			if (caveman.getPosX() > rightMargin && app.keyCode == app.RIGHT) {
+			if (caveman.getCenterX() > rightMargin && app.keyCode == app.RIGHT) {
 				for (int i = 0; i < obstaclesList.size(); i++) {
 					obstaclesList.get(i).advanceMap();
 				}
 				posXbg -= 4;
-				//posXbg -= 4 * caveman.getVelocidad();
+				// posXbg -= 4 * caveman.getVelocidad();
 
 				for (PowerUp p : powerUpList) {
 					p.advanceMap();
 				}
 			}
 
-
-			if (caveman.getPosX() < leftMargin && app.keyCode == app.LEFT) {
+			if (caveman.getCenterX() < leftMargin && app.keyCode == app.LEFT) {
 				for (int i = 0; i < obstaclesList.size(); i++) {
 					obstaclesList.get(i).goBackMap();
 				}
-				
+
 				posXbg += 4;
-				//posXbg += 4 * caveman.getVelocidad();
+				// posXbg += 4 * caveman.getVelocidad();
 
 				for (PowerUp p : powerUpList) {
 					p.goBackMap();

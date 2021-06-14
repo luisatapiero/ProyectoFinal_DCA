@@ -10,6 +10,11 @@ public class Caveman extends Elements implements Runnable {
 	private PImage cavemanImg;
 	private PApplet app;
 	private boolean speedPower;
+	private float gravity;
+	private float jumpSpeed;
+	private boolean isOnplatform;
+	
+	
 	private int velocidad;
 	private int jump;
 	private boolean jumPower;
@@ -20,49 +25,48 @@ public class Caveman extends Elements implements Runnable {
 		speed = (float) 4;
 		cavemanImg = app.loadImage(filename);
 		this.app = app;
-		speedPower = false;
+		centerX = 90;
+		centerY = 30;
+		changeX = 0;
+		changeY = 0;
+		gravity = (float) 5;
+		jumpSpeed = 14;
+		isOnplatform = false;
+		
+		
+		/*speedPower = false;
 		jumPower = false;
 		velocidad = 1;
 		control = 1;
 
-		jump = 155 * control;
+		jump = 155 * control;*/
 		// centerX = 5;
 		// centerY = 565;
 	}
 
 	public void draw() {
-		// Circle circulo = new Circle();
-		//app.g.circle(322, 557, 40);
+
 		app.imageMode(PConstants.CENTER);
-		app.image(cavemanImg, posX, posY);
-		/*if (LeDi(322, 40)) {
-			System.out.println("le diiiii");
-			// Aqui se coloca la imagen en la misma posicion del circulo
-			// 12 es Speed
-			// 13 es Jump boost
-			speedPower = true;
-			jumPower = true;
-			velocidad++;
-			control++;
-		}*/
+		app.image(cavemanImg, centerX, centerY);
+		//System.out.println(centerX+" "+centerY);
 
 	}
+	
 
-	public void moveCaveman(int a) throws InterruptedException {
+	private void directionCaveman(boolean isOnPlatforms){
+		gravity = (float) 0.6;
 		if (app.keyCode == PConstants.RIGHT) {
-			if (speedPower == true) {
-				posX = posX + speed * a;
-			} else {
-				posX = posX + speed;
+			
+				changeX  = speed;
+				
+			} else if (app.keyCode == PConstants.LEFT) {
+			
+				changeX  = -speed;
+			} else if (app.key == ' ' && isOnPlatforms) {
+				changeY = -jumpSpeed;
 			}
-		} else if (app.keyCode == PConstants.LEFT) {
-			if (speedPower == true) {
-				posX = posX - speed * a;
-			} else {
-				posX = posX - speed;
-			}
-
-		} else if (app.keyCode == PConstants.UP) {
+			
+			/*else if (app.keyCode == PConstants.UP) {
 			int inicial = (int) posY;
 			if (posY > inicial - jump) {
 				posY = posY - jump / 2;
@@ -73,7 +77,19 @@ public class Caveman extends Elements implements Runnable {
 				Thread.sleep(250);
 				posY = posY + jump / 2;
 				Thread.sleep(250);
-			}
+			}*/
+		
+	}
+		
+	
+	
+	public void releasedKey() {
+		if (app.keyCode == PConstants.RIGHT) {
+			changeX = 0;
+		}
+		
+		if (app.keyCode == PConstants.LEFT) {
+			changeX = 0;
 		}
 	}
 
@@ -90,12 +106,9 @@ public class Caveman extends Elements implements Runnable {
 
 	@Override
 	public void run() {
-		try {
-			moveCaveman(velocidad);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
+			directionCaveman(isOnplatform);
+	
 
 		try {
 
@@ -108,6 +121,14 @@ public class Caveman extends Elements implements Runnable {
 	}
 	
 	
+
+	public float getGravity() {
+		return gravity;
+	}
+
+	public void setGravity(float gravity) {
+		this.gravity = gravity;
+	}
 
 	public boolean isJumPower() {
 		return jumPower;
@@ -132,6 +153,14 @@ public class Caveman extends Elements implements Runnable {
 
 	public void setVelocidad(int velocidad) {
 		this.velocidad = velocidad;
+	}
+
+	public boolean isOnplatform() {
+		return isOnplatform;
+	}
+
+	public void setOnplatform(boolean isOnplatform) {
+		this.isOnplatform = isOnplatform;
 	}
 
 	

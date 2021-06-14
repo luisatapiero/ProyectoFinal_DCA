@@ -37,6 +37,10 @@ public class ControllerMain {
 		pr.moveCaveman();
 	}
 	
+	public void releasedKey() {
+		pr.releasedKey();
+	}
+	
 	public float getPosXbg() {
 		return pr.getPosXbg();
 	}
