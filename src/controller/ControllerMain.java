@@ -1,6 +1,7 @@
 package controller;
 
 import exceptions.GameOverException;
+import exceptions.WinGameException;
 import model.Caveman;
 import model.Obstacles;
 import model.PrehistoricRace;
@@ -56,6 +57,10 @@ public class ControllerMain {
 	}
 	public void comprobationGameOver() throws GameOverException {
 		pr.comprobationGameOver();
+	}
+	
+	public void winGame() throws WinGameException {
+		pr.win();
 	}
 
 	

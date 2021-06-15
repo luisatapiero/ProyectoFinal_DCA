@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import exceptions.EmptyNicknameException;
 import exceptions.GameOverException;
+import exceptions.WinGameException;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -28,6 +29,7 @@ public class PrehistoricRace {
 	private ArrayList<PowerUp> powerUpList;
 	private ArrayList<DinoFlyer> dinoFList;
 	private ArrayList<DinoTerrestral> dinoTList;
+	private ArrayList<Meat> meatList;
 
 	private static PrehistoricRace onlyInstance;
 
@@ -41,6 +43,7 @@ public class PrehistoricRace {
 		powerUpList = new ArrayList<>();
 		dinoFList = new ArrayList<>();
 		dinoTList = new ArrayList<>();
+		meatList = new ArrayList<>();
 		
 		scorecomparator = new ScoreComparator();
 		datecomparator = new DateComparator();
@@ -48,6 +51,7 @@ public class PrehistoricRace {
 		// jugador = new CavePlayer(91, 565, 1);
 		
 		caveman = new Caveman("Img/Character.png", 101, 20, app);
+		
 		caveman.centerX = 101;
 		caveman.centerY = 100;
 		// caveman.setCenterY(-10);
@@ -119,6 +123,7 @@ public class PrehistoricRace {
 
 		caveman.draw();
 		
+		
 
 			scrollMap();
 
@@ -139,6 +144,11 @@ public class PrehistoricRace {
 
 		for (DinoFlyer o : dinoFList) {
 			o.draw();
+		}
+		
+		for (Meat o : meatList) {
+			o.draw();
+			System.out.println(meatList.size());
 		}
 
 	}
@@ -165,6 +175,7 @@ public class PrehistoricRace {
 		for (Obstacles p : list) {
 			if (checkCollision(c, p))
 				collision_list.add(p);
+			System.out.println(p);
 		}
 
 		return collision_list;
@@ -182,6 +193,7 @@ public class PrehistoricRace {
 			Obstacles collided = col_list.get(0);
 			if (c.changeY > 0) {
 				c.setBottom(collided.getTop(150), 71);
+				
 			} else if (c.changeY < 0) {
 				c.setTop(collided.getBottom(150), 71);
 			}
@@ -315,6 +327,7 @@ public class PrehistoricRace {
 					Meat o = new  Meat("Img/Blocks/meat-20.png", 0, 0, app);
 					o.setCenterX(gridSize / 2 + col * gridSize);
 					o.setCenterY(gridSize / 2 + row * gridSize);
+					meatList.add(o);
 					
 				}
 			}
@@ -411,11 +424,13 @@ public class PrehistoricRace {
 	}
 	
 	
-	private void win() {
-		if (caveman.LeDi(caveman.getCenterX(), caveman.getCenterY(), meat.getCenterX(), meat.getCenterY(), 30)) {
-			//throw new GameOverException("Perdiste, vuelve a intentarlo");
-			System.out.println("GANASTEEEE");
+	public void win() throws WinGameException {
+		for (int j = 0; j < meatList.size(); j++) {
+			if (caveman.LeDi(caveman.getCenterX(), caveman.getCenterY(), meatList.get(j).getCenterX(), meatList.get(j).getCenterY(), 30)) {
+				throw new WinGameException("¡GANASTE!");
+			}
 		}
+		
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------------------------------

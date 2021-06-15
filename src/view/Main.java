@@ -60,13 +60,21 @@ public class Main extends PApplet {
 		case 5:
 			mapview.drawScreen(screen);
 			nicknameview.hideCp5();
-			mapview.time();
+			new Thread (mapview).start();
 			//screen = mapview.switchScreen();
 			screen = mapview.drawScreen(screen);
 			break;
 			
 			
 		case 6:
+			mapview.drawScreen(screen);
+			screen = mapview.drawScreen(screen);
+			nicknameview.hideCp5();
+			//mapview.time();
+			//screen = mapview.switchScreen();
+			break;
+			
+		case 7:
 			mapview.drawScreen(screen);
 			screen = mapview.drawScreen(screen);
 			nicknameview.hideCp5();

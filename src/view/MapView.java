@@ -2,6 +2,7 @@ package view;
 
 import controller.ControllerMain;
 import exceptions.GameOverException;
+import exceptions.WinGameException;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -9,7 +10,7 @@ import processing.core.PImage;
 public class MapView implements Runnable {
 
 	private PApplet app;
-	private PImage resume;
+	private PImage resume, resume2;
 	private PImage map;
 	private ControllerMain controllerMain;
 	private PImage noexiste;
@@ -31,6 +32,8 @@ public class MapView implements Runnable {
 		map.resize(13801, 750);
 		resume = app.loadImage("Img/Score1-04.png");
 		resume.resize(1200, 750);
+		resume2 = app.loadImage("Img/Score1-19.png");
+		resume2.resize(1200, 750);
 		controllerMain = new ControllerMain(app);
 
 		montserrat = app.createFont("Fonts/Montserrat-Regular.ttf", 20);
@@ -99,6 +102,18 @@ public class MapView implements Runnable {
 				
 				
 			}
+			
+			try {
+				controllerMain.winGame();
+			} catch (WinGameException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+				
+				screen = 7;
+			
+				
+				
+			}
 		}
 		
 		
@@ -107,6 +122,14 @@ public class MapView implements Runnable {
 			app.image(resume, 0, 0);
 		
 		}
+		
+		if (screen == 7) {
+			app.imageMode(PApplet.CORNER);
+			app.image(resume2, 0, 0);
+		
+		}
+		
+		
 		return screen;
 		
 

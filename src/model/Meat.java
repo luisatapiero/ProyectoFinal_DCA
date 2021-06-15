@@ -17,6 +17,7 @@ public class Meat extends Elements{
 
 		app.imageMode(PConstants.CENTER);
 		app.image(meatImg, centerX, centerY);
+		meatImg.resize(70, 60);
 
 	}
 
