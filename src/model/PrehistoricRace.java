@@ -18,10 +18,11 @@ public class PrehistoricRace {
 	private final float rightMargin;
 	private final float leftMargin;
 	private float posXbg;
-	private boolean jumpSignal;
 
 	private ArrayList<Obstacles> obstaclesList;
 	private ArrayList<PowerUp> powerUpList;
+	private ArrayList<DinoFlyer> dinoFList;
+	private ArrayList<DinoTerrestral> dinoTList;
 
 	private static PrehistoricRace onlyInstance;
 
@@ -33,6 +34,8 @@ public class PrehistoricRace {
 		players = new ArrayList<>();
 		obstaclesList = new ArrayList<>();
 		powerUpList = new ArrayList<>();
+		dinoFList = new ArrayList<>();
+		dinoTList = new ArrayList<>();
 		scorecomparator = new ScoreComparator();
 		datecomparator = new DateComparator();
 		timecomparator = new TimeComparator();
@@ -45,7 +48,6 @@ public class PrehistoricRace {
 		rightMargin = 300;
 		leftMargin = 100;
 		posXbg = 0;
-		jumpSignal = false;
 
 		createObstacles("Data/GridMap.csv");
 		//System.out.println(powerUpList.size());
@@ -118,6 +120,16 @@ public class PrehistoricRace {
 		
 		checkPowers();
 		for (Obstacles o : obstaclesList) {
+			o.draw();
+			// scrollMap(o);
+		}
+		
+		for (DinoTerrestral o : dinoTList) {
+			o.draw();
+			// scrollMap(o);
+		}
+		
+		for (DinoFlyer o : dinoFList) {
 			o.draw();
 			// scrollMap(o);
 		}
@@ -291,6 +303,16 @@ public class PrehistoricRace {
 					o.setCenterX(gridSize / 2 + col * gridSize);
 					o.setCenterY(gridSize / 2 + row * gridSize);
 					powerUpList.add(o);
+				} else if (values[col].equals("14")) {
+					DinoTerrestral o = new DinoTerrestral("Img/Blocks/dinos-09.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					dinoTList.add(o);
+				} else if (values[col].equals("15")) {
+					DinoFlyer o = new DinoFlyer("Img/Blocks/dinos-10.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					dinoFList.add(o);
 				}
 			}
 		}
@@ -325,6 +347,16 @@ public class PrehistoricRace {
 				for (PowerUp p : powerUpList) {
 					p.advanceMap();
 				}
+				
+				for (DinoTerrestral o : dinoTList) {
+					o.advanceMap();
+					// scrollMap(o);
+				}
+				
+				for (DinoFlyer o : dinoFList) {
+					o.advanceMap();
+					// scrollMap(o);
+				}
 			}
 
 			if (caveman.getCenterX() < leftMargin && app.keyCode == app.LEFT) {
@@ -337,6 +369,16 @@ public class PrehistoricRace {
 
 				for (PowerUp p : powerUpList) {
 					p.goBackMap();
+				}
+				
+				for (DinoTerrestral o : dinoTList) {
+					o.goBackMap();
+					// scrollMap(o);
+				}
+				
+				for (DinoFlyer o : dinoFList) {
+					o.goBackMap();
+					// scrollMap(o);
 				}
 
 			}

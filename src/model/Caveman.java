@@ -43,7 +43,6 @@ public class Caveman extends Elements implements Runnable {
 
 		app.imageMode(PConstants.CENTER);
 		app.image(cavemanImg, centerX, centerY);
-		// System.out.println(centerX+" "+centerY);
 
 	}
 

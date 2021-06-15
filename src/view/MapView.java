@@ -24,7 +24,8 @@ public class MapView implements Runnable {
 
 	public MapView(PApplet app) {
 		this.app = app;
-		map = app.loadImage("Img/map2.JPG");
+		///map = app.loadImage("Img/map2.JPG");
+		map = app.loadImage("Img/Map.png");
 		map.resize(13801, 750);
 		controllerMain = new ControllerMain(app);
 
