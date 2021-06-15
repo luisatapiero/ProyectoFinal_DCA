@@ -67,6 +67,10 @@ public class ControllerMain {
 		pr.newGame();
 		
 	}
+	
+	public void paintFinalScore() {
+		pr.paintFinalScore();
+	}
 
 
 	

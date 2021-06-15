@@ -101,14 +101,17 @@ public class MapView implements Runnable {
 		}
 
 		if (screen == 6) {
+			app.textFont(montserrat);
 			app.imageMode(PApplet.CORNER);
 			app.image(resume, 0, 0);
+			app.fill(0);
+			controllerMain.paintFinalScore();
+			app.fill(255);
 			
 		}
 
 		return screen;
 
-		// controllerMain.scrollMap();
 
 	}
 
@@ -133,7 +136,6 @@ public class MapView implements Runnable {
 			controllerMain.moveCaveman();
 		}
 
-		// posX -= 5;
 
 	}
 

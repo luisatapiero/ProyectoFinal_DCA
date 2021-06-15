@@ -423,6 +423,12 @@ public class PrehistoricRace {
 		createObstacles("Data/GridMap.csv");
 		
 	}
+	
+	public void paintFinalScore() {
+		
+		app.text("Tiempo " + players.get(players.size()-1).getGameTime(), 500, 300);
+		app.text("Puntaje " + players.get(players.size()-1).getScore(), 500, 350);
+	}
 
 	public float getPosXbg() {
 		return posXbg;
