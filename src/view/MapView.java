@@ -1,8 +1,8 @@
 package view;
 
 import controller.ControllerMain;
+
 import exceptions.GameOverException;
-import exceptions.WinGameException;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -17,7 +17,7 @@ public class MapView implements Runnable {
 //----------------------------------------------------------------------------------------------------------------------------------
 
 	private int mil = 0;
-	private int s = 0;
+	public static int s = 0;
 	private int m = 0;
 	private int forMinute = 0;
 
@@ -27,114 +27,104 @@ public class MapView implements Runnable {
 
 	public MapView(PApplet app) {
 		this.app = app;
-		///map = app.loadImage("Img/map2.JPG");
+		/// map = app.loadImage("Img/map2.JPG");
 		map = app.loadImage("Img/Map.png");
 		map.resize(13801, 750);
-		resume = app.loadImage("Img/Score1-04.png");
+		resume = app.loadImage("Img/Score1.png");
 		resume.resize(1200, 750);
-		resume2 = app.loadImage("Img/Score1-19.png");
-		resume2.resize(1200, 750);
+
 		controllerMain = new ControllerMain(app);
 
 		montserrat = app.createFont("Fonts/Montserrat-Regular.ttf", 20);
-		
-		runtimeException1 ();
-		runtimeException2();
-		runtimeException3 ();		
-	}
-	
-	private void runtimeException1 (){
 
-			
-			try {
-				String nonExisted = null;
-				Integer.parseInt(nonExisted);
-		
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				System.out.println("1. Exception Number Format Exception");
-			}
+		runtimeException1();
+		runtimeException2();
+		runtimeException3();
 	}
-	
-	public void runtimeException2() {
+
+	private void runtimeException1() {
+
 		try {
-			
-			int suma = 12/0;
-			
-		} catch (Exception e) {
-			//e.printStackTrace();
-			System.out.println("2. Arithmetic exception");
-		}
-		
-	}
-	
-	private void runtimeException3 (){
-		
-		
-		try {
-			app.image(noexiste, 2, 2);
-	
+			String nonExisted = null;
+			Integer.parseInt(nonExisted);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			System.out.println("1. Exception Number Format Exception");
+		}
+	}
+
+	public void runtimeException2() {
+		try {
+
+			int suma = 12 / 0;
+
+		} catch (Exception e) {
+			// e.printStackTrace();
+			System.out.println("2. Arithmetic exception");
+		}
+
+	}
+
+	private void runtimeException3() {
+
+		try {
+			app.image(noexiste, 2, 2);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
 			System.out.println("3. Exception Null Pointer Exception");
 		}
-}
-	
+	}
 
 	public int drawScreen(int screen) {
 		app.textFont(montserrat);
-		
+
 		if (screen == 5) {
 			app.imageMode(PApplet.CORNER);
 			app.image(map, controllerMain.getPosXbg(), 0);
 			app.imageMode(PApplet.CENTER);
-			
+			controllerMain.drawObstacles();
+
 			try {
-				controllerMain.drawObstacles();
+				controllerMain.eatenbyDino();
 				controllerMain.comprobationGameOver();
 			} catch (GameOverException e) {
 				// TODO Auto-generated catch block
 				System.out.println(e.getMessage());
-				
+
 				screen = 6;
-			
-				
-				
+
 			}
-			
-			try {
-				controllerMain.winGame();
-			} catch (WinGameException e) {
-				// TODO Auto-generated catch block
-				System.out.println(e.getMessage());
-				
-				screen = 7;
-			
-				
-				
-			}
+
 		}
-		
-		
+
 		if (screen == 6) {
 			app.imageMode(PApplet.CORNER);
 			app.image(resume, 0, 0);
-		
+			
 		}
-		
-		if (screen == 7) {
-			app.imageMode(PApplet.CORNER);
-			app.image(resume2, 0, 0);
-		
-		}
-		
-		
-		return screen;
-		
 
-		
+		return screen;
+
 		// controllerMain.scrollMap();
+
+	}
+
+	public int switchScreen(int screen) {
+		if (screen == 6) {
+
+			if (app.mouseX > 456 && 750 > app.mouseX && app.mouseY > 602 && 651 > app.mouseY) {
+
+				screen = 1;
+				
+				controllerMain.newGame();
+				s = 0;
+				mil = 0;
+			}
+		}
+		return screen;
 
 	}
 
@@ -142,19 +132,18 @@ public class MapView implements Runnable {
 		if (screen != 6) {
 			controllerMain.moveCaveman();
 		}
-		
+
 		// posX -= 5;
 
 	}
 
 	public void stopCaveman(int screen) {
-		
+
 		if (screen != 6) {
 			controllerMain.releasedKey();
 		}
 
 	}
-
 
 //--------------------------------------------------------------------------------------------------------------------------
 
@@ -169,17 +158,15 @@ public class MapView implements Runnable {
 		} else {
 			s = s + 1;
 			mil = 0;
-			m = 0;
-			app.text(m + ":" + s + ":" + mil, 1110, 42);
-		}
-
-		if (s >= 59) {
-			m = 0;
-			s = 0;
-			app.text(m + ":" + s + ":" + mil, 1110, 42);
+			// m = 0;
+			app.text(s + "s", 1110, 42);
+			app.text(m, 1110, 72);
 		}
 
 	}
+	/*
+	 * if (s >= 59) { m = 0; s = 0; app.text(m + ":" + s + ":" + mil, 1110, 42); }
+	 */
 
 	@Override
 	public void run() {

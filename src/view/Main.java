@@ -110,6 +110,10 @@ public class Main extends PApplet {
 		case 5:
 			
 			break;
+			
+		case 6:
+			screen = mapview.switchScreen(screen);
+			break;
 		default:
 			break;
 		}

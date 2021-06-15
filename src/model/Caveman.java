@@ -12,10 +12,7 @@ public class Caveman extends Elements implements Runnable {
 	private boolean speedPower;
 	private float gravity;
 	private float jumpSpeed;
-	private boolean isOnplatform;
 
-	private int velocidad;
-	private boolean jumPower;;
 
 	public Caveman(String filename, float posX, float posY, PApplet app) {
 		super(filename, posX, posY, app);
@@ -28,7 +25,7 @@ public class Caveman extends Elements implements Runnable {
 		changeY = 0;
 		gravity = (float) 5;
 		jumpSpeed = 10;
-		isOnplatform = false;
+
 
 		/*
 		 * speedPower = false; jumPower = false; velocidad = 1; control = 1;
@@ -87,6 +84,13 @@ public class Caveman extends Elements implements Runnable {
 			return false;
 		}
 	}
+	
+	public void newgame() {
+		centerX = 100;
+		centerY = 100;
+		changeX = 0;
+		changeY = 0;
+	}
 
 	@Override
 	public void run() {
@@ -119,20 +123,6 @@ public class Caveman extends Elements implements Runnable {
 		this.speedPower = speedPower;
 	}
 
-	public int getVelocidad() {
-		return velocidad;
-	}
 
-	public void setVelocidad(int velocidad) {
-		this.velocidad = velocidad;
-	}
-
-	public boolean isOnplatform() {
-		return isOnplatform;
-	}
-
-	public void setOnplatform(boolean isOnplatform) {
-		this.isOnplatform = isOnplatform;
-	}
 
 }

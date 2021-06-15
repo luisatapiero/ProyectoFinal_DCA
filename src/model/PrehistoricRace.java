@@ -1,14 +1,15 @@
 package model;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.Iterator;
 
 import exceptions.EmptyNicknameException;
 import exceptions.GameOverException;
-import exceptions.WinGameException;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import view.MapView;
 
 public class PrehistoricRace {
 
@@ -20,7 +21,6 @@ public class PrehistoricRace {
 
 	private final float gridSize;
 	private Caveman caveman;
-	private Meat meat;
 	private final float rightMargin;
 	private final float leftMargin;
 	private float posXbg;
@@ -29,7 +29,6 @@ public class PrehistoricRace {
 	private ArrayList<PowerUp> powerUpList;
 	private ArrayList<DinoFlyer> dinoFList;
 	private ArrayList<DinoTerrestral> dinoTList;
-	private ArrayList<Meat> meatList;
 
 	private static PrehistoricRace onlyInstance;
 
@@ -43,7 +42,6 @@ public class PrehistoricRace {
 		powerUpList = new ArrayList<>();
 		dinoFList = new ArrayList<>();
 		dinoTList = new ArrayList<>();
-		meatList = new ArrayList<>();
 		
 		scorecomparator = new ScoreComparator();
 		datecomparator = new DateComparator();
@@ -115,7 +113,7 @@ public class PrehistoricRace {
 		}
 	}
 
-	public void drawObstacles() throws GameOverException {
+	public void drawObstacles() {
 
 		for (PowerUp p : powerUpList) {
 			p.draw();
@@ -132,7 +130,7 @@ public class PrehistoricRace {
 
 		collectPoints();
 
-		eatenbyDino();
+		
 
 		for (Obstacles o : obstaclesList) {
 			o.draw();
@@ -146,10 +144,7 @@ public class PrehistoricRace {
 			o.draw();
 		}
 		
-		for (Meat o : meatList) {
-			o.draw();
-			System.out.println(meatList.size());
-		}
+
 
 	}
 
@@ -175,7 +170,6 @@ public class PrehistoricRace {
 		for (Obstacles p : list) {
 			if (checkCollision(c, p))
 				collision_list.add(p);
-			System.out.println(p);
 		}
 
 		return collision_list;
@@ -221,22 +215,6 @@ public class PrehistoricRace {
 
 	}
 
-//--------------SALTO------------------------------------------------------------------------------------------------
-
-	public boolean isOnplatform(Caveman c, ArrayList<Obstacles> walls) {
-
-		c.centerY += 5;
-		ArrayList<Obstacles> col_list = checkCollisionList(c, walls);
-		c.centerY -= 5;
-		if (col_list.size() > 0) {
-			c.setOnplatform(true);
-			return true;
-		} else {
-			c.setOnplatform(false);
-			System.out.println(isOnplatform(c, walls));
-			return false;
-		}
-	}
 
 //-------------------------------------------------------------------------------------------------------------------
 	private void createObstacles(String filename) {
@@ -323,12 +301,6 @@ public class PrehistoricRace {
 					o.setCenterX(gridSize / 2 + col * gridSize);
 					o.setCenterY(gridSize / 2 + row * gridSize);
 					dinoFList.add(o);
-				} else if (values[col].equals("16")) {
-					Meat o = new  Meat("Img/Blocks/meat-20.png", 0, 0, app);
-					o.setCenterX(gridSize / 2 + col * gridSize);
-					o.setCenterY(gridSize / 2 + row * gridSize);
-					meatList.add(o);
-					
 				}
 			}
 		}
@@ -402,20 +374,23 @@ public class PrehistoricRace {
 		for (int i = 0; i < powerUpList.size(); i++) {
 			if (caveman.LeDi(caveman.getCenterX(), caveman.getCenterY(), powerUpList.get(i).getCenterX(), powerUpList.get(i).getCenterY(), 60)) {
 				powerUpList.remove(i);
+				players.get(players.size()-1).setScore((players.get(players.size()-1).getScore() + 1));
 			}
 
 		}
 
 	}
 
-	private void eatenbyDino() throws GameOverException {
+	public void eatenbyDino() throws GameOverException {
 		for (int i = 0; i < dinoTList.size(); i++) {
-			if (caveman.LeDi(caveman.getCenterX(), caveman.getCenterY(), dinoTList.get(i).getCenterX(), dinoTList.get(i).getCenterY(), 30)){
+			if (caveman.LeDi(caveman.getCenterX(), caveman.getCenterY(), dinoTList.get(i).getCenterX(), dinoTList.get(i).getCenterY(), 60)){
+				players.get(players.size()-1).setGameTime((MapView.s));
 				throw new GameOverException("Perdiste, vuelve a intentarlo");
 			}
 		}
 			for (int j = 0; j < dinoFList.size(); j++) {
-				if (caveman.LeDi(caveman.getCenterX(), caveman.getCenterY(), dinoFList.get(j).getCenterX(), dinoFList.get(j).getCenterY(), 30)) {
+				if (caveman.LeDi(caveman.getCenterX(), caveman.getCenterY(), dinoFList.get(j).getCenterX(), dinoFList.get(j).getCenterY(), 60)) {
+					players.get(players.size()-1).setGameTime((MapView.s));
 					throw new GameOverException("Perdiste, vuelve a intentarlo");
 				}
 			}
@@ -423,24 +398,30 @@ public class PrehistoricRace {
 
 	}
 	
-	
-	public void win() throws WinGameException {
-		for (int j = 0; j < meatList.size(); j++) {
-			if (caveman.LeDi(caveman.getCenterX(), caveman.getCenterY(), meatList.get(j).getCenterX(), meatList.get(j).getCenterY(), 30)) {
-				throw new WinGameException("¡GANASTE!");
-			}
-		}
-		
-	}
+
 
 	// -----------------------------------------------------------------------------------------------------------------------------------------
 	// METODO DE GAME OVER
 	public void comprobationGameOver() throws GameOverException {
 
 		if (caveman.centerY > 780) {
+			players.get(players.size()-1).setGameTime((MapView.s));
 			throw new GameOverException("Perdiste, vuelve a intentarlo");
+			
 		}
 
+	}
+	
+	public void newGame() {
+		caveman.newgame();
+		posXbg = 0;
+		obstaclesList.clear();
+		powerUpList.clear();
+		dinoFList.clear();
+		dinoTList.clear();
+		
+		createObstacles("Data/GridMap.csv");
+		
 	}
 
 	public float getPosXbg() {
@@ -454,5 +435,6 @@ public class PrehistoricRace {
 	public void stopCaveman() {
 		new Thread(caveman).start();
 	}
+	
 
 }
