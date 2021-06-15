@@ -349,12 +349,12 @@ public class PrehistoricRace {
 				}
 				
 				for (DinoTerrestral o : dinoTList) {
-					o.advanceMap();
+					new Thread (o).start();
 					// scrollMap(o);
 				}
 				
 				for (DinoFlyer o : dinoFList) {
-					o.advanceMap();
+					new Thread (o).start();
 					// scrollMap(o);
 				}
 			}

@@ -3,7 +3,7 @@ package model;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class DinoFlyer extends Elements{
+public class DinoFlyer extends Elements implements Runnable{
 	
 	private PImage dinoFlyerImg;
 
@@ -27,6 +27,21 @@ public class DinoFlyer extends Elements{
 
 	public void goBackMap() {
 		centerX += 4;
+	}
+
+
+	@Override
+	public void run() {
+		advanceMap();
+		
+		try {
+
+			Thread.sleep(10);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }
