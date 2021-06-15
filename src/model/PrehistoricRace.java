@@ -78,7 +78,7 @@ public class PrehistoricRace {
 	public void addPlayer(String nickname) {
 		Player p = new Player(nickname, app);
 		players.add(p);
-		System.out.println(players.get(0).getNickname());
+		System.out.println(players.get(2).getNickname());
 	}
 
 	public void drawplayers() {
@@ -113,7 +113,6 @@ public class PrehistoricRace {
 
 		for (PowerUp p : powerUpList) {
 			p.draw();
-			// scrollMap(o);
 		}
 
 		caveman.draw();
@@ -126,17 +125,14 @@ public class PrehistoricRace {
 
 		for (Obstacles o : obstaclesList) {
 			o.draw();
-			// scrollMap(o);
 		}
 
 		for (DinoTerrestral o : dinoTList) {
 			o.draw();
-			// scrollMap(o);
 		}
 
 		for (DinoFlyer o : dinoFList) {
 			o.draw();
-			// scrollMap(o);
 		}
 
 	}
@@ -394,24 +390,24 @@ public class PrehistoricRace {
 
 	private void eatenbyDino() throws GameOverException {
 		for (int i = 0; i < dinoTList.size(); i++) {
+			if (app.dist(caveman.getCenterX(), caveman.getCenterY(), dinoTList.get(i).getCenterX(), dinoTList.get(i).getCenterY()) < 30){
+				throw new GameOverException("Perdiste, vuelve a intentarlo");
+			}
+		}
 			for (int j = 0; j < dinoFList.size(); j++) {
-				if (caveman.LeDi(dinoTList.get(i).getCenterX(), 20, dinoTList.get(i).getCenterY())
-						|| caveman.LeDi(dinoFList.get(j).getCenterX(), 20, dinoFList.get(j).getCenterY())) {
+				if (app.dist(caveman.getCenterX(), caveman.getCenterY(), dinoFList.get(j).getCenterX(), dinoFList.get(j).getCenterY()) < 30) {
 					throw new GameOverException("Perdiste, vuelve a intentarlo");
 				}
 			}
 
-		}
 
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------------------------------
 	// METODO DE GAME OVER
-	public void comprobationGameOver() throws GameOverException{
+	public void comprobationGameOver() throws GameOverException {
 
 		if (caveman.centerY > 780) {
-			app.text("defeat", 500, 500);
-			app.fill(0);
 			throw new GameOverException("Perdiste, vuelve a intentarlo");
 		}
 
