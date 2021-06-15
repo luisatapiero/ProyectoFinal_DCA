@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControllerMain;
+import exceptions.GameOverException;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -8,6 +9,7 @@ import processing.core.PImage;
 public class MapView implements Runnable {
 
 	private PApplet app;
+	private PImage resume;
 	private PImage map;
 	private ControllerMain controllerMain;
 	private PImage noexiste;
@@ -27,6 +29,8 @@ public class MapView implements Runnable {
 		///map = app.loadImage("Img/map2.JPG");
 		map = app.loadImage("Img/Map.png");
 		map.resize(13801, 750);
+		resume = app.loadImage("Img/Score1-04.png");
+		resume.resize(1200, 750);
 		controllerMain = new ControllerMain(app);
 
 		montserrat = app.createFont("Fonts/Montserrat-Regular.ttf", 20);
@@ -75,39 +79,59 @@ public class MapView implements Runnable {
 }
 	
 
-	public void drawScreen() {
+	public int drawScreen(int screen) {
 		app.textFont(montserrat);
+		
+		if (screen == 5) {
+			app.imageMode(PApplet.CORNER);
+			app.image(map, controllerMain.getPosXbg(), 0);
+			app.imageMode(PApplet.CENTER);
+			
+			try {
+				controllerMain.drawObstacles();
+				controllerMain.comprobationGameOver();
+			} catch (GameOverException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+				
+				screen = 6;
+			
+				
+				
+			}
+		}
+		
+		
+		if (screen == 6) {
+			app.imageMode(PApplet.CORNER);
+			app.image(resume, 0, 0);
+		
+		}
+		return screen;
+		
 
-		app.imageMode(PApplet.CORNER);
-		app.image(map, controllerMain.getPosXbg(), 0);
-		app.imageMode(PApplet.CENTER);
-		controllerMain.drawObstacles();
+		
 		// controllerMain.scrollMap();
 
 	}
 
-	public void moveCaveman() {
-		controllerMain.moveCaveman();
+	public void moveCaveman(int screen) {
+		if (screen != 6) {
+			controllerMain.moveCaveman();
+		}
+		
 		// posX -= 5;
 
 	}
 
-	public void stopCaveman() {
-		controllerMain.releasedKey();
-
-	}
-
-	public int switchScreen() {
-		int screen = 3;
-
-		if (controllerMain.comprobationGameOver()) {
-
-			screen = 6;
-
+	public void stopCaveman(int screen) {
+		
+		if (screen != 6) {
+			controllerMain.releasedKey();
 		}
-		return screen;
 
 	}
+
 
 //--------------------------------------------------------------------------------------------------------------------------
 

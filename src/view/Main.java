@@ -58,16 +58,17 @@ public class Main extends PApplet {
 
 			break;
 		case 5:
-			mapview.drawScreen();
+			mapview.drawScreen(screen);
 			nicknameview.hideCp5();
 			mapview.time();
 			//screen = mapview.switchScreen();
+			screen = mapview.drawScreen(screen);
 			break;
 			
 			
 		case 6:
-			
-			//mapview.drawScreen();
+			mapview.drawScreen(screen);
+			screen = mapview.drawScreen(screen);
 			nicknameview.hideCp5();
 			//mapview.time();
 			//screen = mapview.switchScreen();
@@ -109,7 +110,7 @@ public class Main extends PApplet {
 	public void keyPressed() {
 		switch (screen) {
 		case 5:
-			mapview.moveCaveman();
+			mapview.moveCaveman(screen);
 			break;
 
 		default:
@@ -120,7 +121,7 @@ public class Main extends PApplet {
 	public void keyReleased() {
 		switch (screen) {
 		case 5:
-			mapview.stopCaveman();
+			mapview.stopCaveman(screen);
 			break;
 
 		default:

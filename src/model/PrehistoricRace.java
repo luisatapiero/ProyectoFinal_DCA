@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
+import exceptions.EmptyNicknameException;
+import exceptions.GameOverException;
 import processing.core.PApplet;
+import processing.core.PConstants;
+
 public class PrehistoricRace {
 
 	private PApplet app;
@@ -50,7 +54,7 @@ public class PrehistoricRace {
 		posXbg = 0;
 
 		createObstacles("Data/GridMap.csv");
-		//System.out.println(powerUpList.size());
+		// System.out.println(powerUpList.size());
 
 		/* jugadores para probar ordenamientos */
 		Player n = new Player("pepe", app);
@@ -105,37 +109,35 @@ public class PrehistoricRace {
 		}
 	}
 
-	public void drawObstacles() {
+	public void drawObstacles() throws GameOverException {
 
 		for (PowerUp p : powerUpList) {
 			p.draw();
 			// scrollMap(o);
 		}
-		
-		
 
 		caveman.draw();
 		scrollMap();
 		resolvePlatformCollisions(caveman, obstaclesList);
-		
-		checkPowers();
+
+		collectPoints();
+
+		eatenbyDino();
+
 		for (Obstacles o : obstaclesList) {
 			o.draw();
 			// scrollMap(o);
 		}
-		
+
 		for (DinoTerrestral o : dinoTList) {
 			o.draw();
 			// scrollMap(o);
 		}
-		
+
 		for (DinoFlyer o : dinoFList) {
 			o.draw();
 			// scrollMap(o);
 		}
-		
-
-		
 
 	}
 
@@ -168,11 +170,10 @@ public class PrehistoricRace {
 
 	public void resolvePlatformCollisions(Caveman c, ArrayList<Obstacles> walls) {
 
-		
 		c.changeY += caveman.getGravity();
 
 		c.centerY += c.changeY;
-		
+
 		ArrayList<Obstacles> col_list = checkCollisionList(c, walls);
 
 		if (col_list.size() > 0) {
@@ -181,7 +182,7 @@ public class PrehistoricRace {
 				c.setBottom(collided.getTop(150), 71);
 			} else if (c.changeY < 0) {
 				c.setTop(collided.getBottom(150), 71);
-			} 
+			}
 			c.changeY = 0;
 		}
 
@@ -193,40 +194,35 @@ public class PrehistoricRace {
 			Obstacles collided = col_list.get(0);
 			if (c.changeX > 0) {
 				c.setRight(collided.getLeft(150), 66);
-				
+
 			} else if (c.changeX < 0) {
 				c.setLeft(collided.getRight(150), 66);
-				
+
 			}
 
 		}
 		if (col_list.size() == 1) {
 			col_list.remove(0);
 		}
-		
 
 	}
-	
+
 //--------------SALTO------------------------------------------------------------------------------------------------
-	
+
 	public boolean isOnplatform(Caveman c, ArrayList<Obstacles> walls) {
 
-			c.centerY +=5;
-			ArrayList<Obstacles> col_list = checkCollisionList(c,walls);
-			c.centerY -= 5;
-			if(col_list.size() > 0) {
-				c.setOnplatform(true);
-				return true;
-			}else {
-				c.setOnplatform(false);
-				System.out.println(isOnplatform(c,walls));
-				return false;
-			}
+		c.centerY += 5;
+		ArrayList<Obstacles> col_list = checkCollisionList(c, walls);
+		c.centerY -= 5;
+		if (col_list.size() > 0) {
+			c.setOnplatform(true);
+			return true;
+		} else {
+			c.setOnplatform(false);
+			System.out.println(isOnplatform(c, walls));
+			return false;
 		}
-
-		
-		
-	
+	}
 
 //-------------------------------------------------------------------------------------------------------------------
 	private void createObstacles(String filename) {
@@ -321,11 +317,11 @@ public class PrehistoricRace {
 
 	public void moveCaveman() {
 		if (caveman.getCenterX() > leftMargin && caveman.getCenterX() < rightMargin) {
-			
+
 			new Thread(caveman).start();
-			//isOnplatform(caveman, obstaclesList);
+			// isOnplatform(caveman, obstaclesList);
 		}
-		
+
 		caveman.jumpCaveman();
 
 	}
@@ -347,19 +343,19 @@ public class PrehistoricRace {
 				for (PowerUp p : powerUpList) {
 					p.advanceMap();
 				}
-				
+
 				for (DinoTerrestral o : dinoTList) {
-					new Thread (o).start();
+					new Thread(o).start();
 					// scrollMap(o);
 				}
-				
+
 				for (DinoFlyer o : dinoFList) {
-					new Thread (o).start();
+					new Thread(o).start();
 					// scrollMap(o);
 				}
 			}
 
-			if (caveman.getCenterX() > leftMargin && app.keyCode == app.LEFT) {
+			if (caveman.getCenterX() > leftMargin && app.keyCode == PConstants.LEFT) {
 				for (int i = 0; i < obstaclesList.size(); i++) {
 					obstaclesList.get(i).goBackMap();
 				}
@@ -370,12 +366,12 @@ public class PrehistoricRace {
 				for (PowerUp p : powerUpList) {
 					p.goBackMap();
 				}
-				
+
 				for (DinoTerrestral o : dinoTList) {
 					o.goBackMap();
 					// scrollMap(o);
 				}
-				
+
 				for (DinoFlyer o : dinoFList) {
 					o.goBackMap();
 					// scrollMap(o);
@@ -385,7 +381,7 @@ public class PrehistoricRace {
 		}
 	}
 
-	private void checkPowers() {
+	private void collectPoints() {
 		for (int i = 0; i < powerUpList.size(); i++) {
 			if (caveman.LeDi(powerUpList.get(i).getCenterX(), 60, powerUpList.get(i).getCenterY())) {
 				powerUpList.remove(i);
@@ -396,21 +392,31 @@ public class PrehistoricRace {
 
 	}
 
-	// -----------------------------------------------------------------------------------------------------------------------------------------
-	//METODO DE GAME OVER
-	public boolean comprobationGameOver() {
+	private void eatenbyDino() throws GameOverException {
+		for (int i = 0; i < dinoTList.size(); i++) {
+			for (int j = 0; j < dinoFList.size(); j++) {
+				if (caveman.LeDi(dinoTList.get(i).getCenterX(), 20, dinoTList.get(i).getCenterY())
+						|| caveman.LeDi(dinoFList.get(j).getCenterX(), 20, dinoFList.get(j).getCenterY())) {
+					throw new GameOverException("Perdiste, vuelve a intentarlo");
+				}
+			}
 
-		
-		if(caveman.centerY > 780 ) {
-			app.text("defeat", 500,500);
-			app.fill(0);
-			return true;
 		}
-		
-		return false;
+
 	}
-	
-	
+
+	// -----------------------------------------------------------------------------------------------------------------------------------------
+	// METODO DE GAME OVER
+	public void comprobationGameOver() throws GameOverException{
+
+		if (caveman.centerY > 780) {
+			app.text("defeat", 500, 500);
+			app.fill(0);
+			throw new GameOverException("Perdiste, vuelve a intentarlo");
+		}
+
+	}
+
 	public float getPosXbg() {
 		return posXbg;
 	}

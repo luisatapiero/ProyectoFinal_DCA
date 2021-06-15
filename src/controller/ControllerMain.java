@@ -1,5 +1,6 @@
 package controller;
 
+import exceptions.GameOverException;
 import model.Caveman;
 import model.Obstacles;
 import model.PrehistoricRace;
@@ -25,7 +26,7 @@ public class ControllerMain {
 		pr.sortPlayers(filter);
 	}
 
-	public void drawObstacles() {
+	public void drawObstacles() throws GameOverException {
 		pr.drawObstacles();
 	}
 	
@@ -53,8 +54,8 @@ public class ControllerMain {
 		pr.stopCaveman();
 		
 	}
-	public boolean comprobationGameOver() {
-		return pr.comprobationGameOver();
+	public void comprobationGameOver() throws GameOverException {
+		pr.comprobationGameOver();
 	}
 
 	
