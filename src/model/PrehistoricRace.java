@@ -19,6 +19,7 @@ public class PrehistoricRace {
 
 	private final float gridSize;
 	private Caveman caveman;
+	private Meat meat;
 	private final float rightMargin;
 	private final float leftMargin;
 	private float posXbg;
@@ -40,17 +41,18 @@ public class PrehistoricRace {
 		powerUpList = new ArrayList<>();
 		dinoFList = new ArrayList<>();
 		dinoTList = new ArrayList<>();
+		
 		scorecomparator = new ScoreComparator();
 		datecomparator = new DateComparator();
 		timecomparator = new TimeComparator();
 		// jugador = new CavePlayer(91, 565, 1);
-
+		
 		caveman = new Caveman("Img/Character.png", 101, 20, app);
 		caveman.centerX = 101;
 		caveman.centerY = 100;
 		// caveman.setCenterY(-10);
 		rightMargin = 300;
-		leftMargin = 100;
+		leftMargin = 0;
 		posXbg = 0;
 
 		createObstacles("Data/GridMap.csv");
@@ -116,7 +118,11 @@ public class PrehistoricRace {
 		}
 
 		caveman.draw();
-		scrollMap();
+		
+
+			scrollMap();
+
+		
 		resolvePlatformCollisions(caveman, obstaclesList);
 
 		collectPoints();
@@ -305,6 +311,11 @@ public class PrehistoricRace {
 					o.setCenterX(gridSize / 2 + col * gridSize);
 					o.setCenterY(gridSize / 2 + row * gridSize);
 					dinoFList.add(o);
+				} else if (values[col].equals("16")) {
+					Meat o = new  Meat("Img/Blocks/meat-20.png", 0, 0, app);
+					o.setCenterX(gridSize / 2 + col * gridSize);
+					o.setCenterY(gridSize / 2 + row * gridSize);
+					
 				}
 			}
 		}
@@ -312,10 +323,9 @@ public class PrehistoricRace {
 	}
 
 	public void moveCaveman() {
-		if (caveman.getCenterX() > leftMargin && caveman.getCenterX() < rightMargin) {
+		if ((caveman.getCenterX() > leftMargin && caveman.getCenterX() < rightMargin) || (posXbg <= -12584)) {
 
 			new Thread(caveman).start();
-			// isOnplatform(caveman, obstaclesList);
 		}
 
 		caveman.jumpCaveman();
@@ -328,13 +338,12 @@ public class PrehistoricRace {
 
 	public void scrollMap() {
 
-		if (app.keyPressed == true) {
-			if (caveman.getCenterX() > rightMargin && app.keyCode == app.RIGHT) {
+		if (app.keyPressed == true ) {
+			if (caveman.getCenterX() > rightMargin && app.keyCode == app.RIGHT && posXbg <= 4 && posXbg >= -12584) {
 				for (int i = 0; i < obstaclesList.size(); i++) {
 					obstaclesList.get(i).advanceMap();
 				}
 				posXbg -= 4;
-				// posXbg -= 4 * caveman.getVelocidad();
 
 				for (PowerUp p : powerUpList) {
 					p.advanceMap();
@@ -342,22 +351,19 @@ public class PrehistoricRace {
 
 				for (DinoTerrestral o : dinoTList) {
 					new Thread(o).start();
-					// scrollMap(o);
 				}
 
 				for (DinoFlyer o : dinoFList) {
 					new Thread(o).start();
-					// scrollMap(o);
 				}
 			}
 
-			if (caveman.getCenterX() > leftMargin && app.keyCode == PConstants.LEFT) {
+			if (caveman.getCenterX() > leftMargin && app.keyCode == PConstants.LEFT && posXbg <= 0 && posXbg >= -12584) {
 				for (int i = 0; i < obstaclesList.size(); i++) {
 					obstaclesList.get(i).goBackMap();
 				}
 
 				posXbg += 4;
-				// posXbg += 4 * caveman.getVelocidad();
 
 				for (PowerUp p : powerUpList) {
 					p.goBackMap();
@@ -375,13 +381,14 @@ public class PrehistoricRace {
 
 			}
 		}
+		
+		System.out.println(posXbg);
 	}
 
 	private void collectPoints() {
 		for (int i = 0; i < powerUpList.size(); i++) {
-			if (caveman.LeDi(powerUpList.get(i).getCenterX(), 60, powerUpList.get(i).getCenterY())) {
+			if (caveman.LeDi(caveman.getCenterX(), caveman.getCenterY(), powerUpList.get(i).getCenterX(), powerUpList.get(i).getCenterY(), 60)) {
 				powerUpList.remove(i);
-				System.out.println("le diiiii");
 			}
 
 		}
@@ -390,17 +397,25 @@ public class PrehistoricRace {
 
 	private void eatenbyDino() throws GameOverException {
 		for (int i = 0; i < dinoTList.size(); i++) {
-			if (app.dist(caveman.getCenterX(), caveman.getCenterY(), dinoTList.get(i).getCenterX(), dinoTList.get(i).getCenterY()) < 30){
+			if (caveman.LeDi(caveman.getCenterX(), caveman.getCenterY(), dinoTList.get(i).getCenterX(), dinoTList.get(i).getCenterY(), 30)){
 				throw new GameOverException("Perdiste, vuelve a intentarlo");
 			}
 		}
 			for (int j = 0; j < dinoFList.size(); j++) {
-				if (app.dist(caveman.getCenterX(), caveman.getCenterY(), dinoFList.get(j).getCenterX(), dinoFList.get(j).getCenterY()) < 30) {
+				if (caveman.LeDi(caveman.getCenterX(), caveman.getCenterY(), dinoFList.get(j).getCenterX(), dinoFList.get(j).getCenterY(), 30)) {
 					throw new GameOverException("Perdiste, vuelve a intentarlo");
 				}
 			}
 
 
+	}
+	
+	
+	private void win() {
+		if (caveman.LeDi(caveman.getCenterX(), caveman.getCenterY(), meat.getCenterX(), meat.getCenterY(), 30)) {
+			//throw new GameOverException("Perdiste, vuelve a intentarlo");
+			System.out.println("GANASTEEEE");
+		}
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------------------------------

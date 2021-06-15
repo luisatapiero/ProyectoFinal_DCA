@@ -75,12 +75,12 @@ public class Caveman extends Elements implements Runnable {
 		}
 	}
 
-	public boolean LeDi(float a, int b, float c) {
-		float temp = a - b;
+	public boolean LeDi(float a, float f, float c, float d, float e) {
+		/*float temp = a - b;
 		float temp2 = c - b;
 		int prueba = (int) (temp - centerX);
-		int prueba2 = (int) (temp2 - centerY);
-		if (prueba < 4 && centerX < a && prueba2 < 4 && centerX < a) {
+		int prueba2 = (int) (temp2 - centerY);*/
+		if (app.dist(a, f, c, d) < e) {
 			return true;
 
 		} else {
