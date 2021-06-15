@@ -1,4 +1,4 @@
 # ProyectoFinal_DCA
 
-Video de sustentacion 
+Video de sustentación
 https://youtu.be/7zNBVlq-twk
