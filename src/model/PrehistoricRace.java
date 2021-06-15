@@ -359,7 +359,7 @@ public class PrehistoricRace {
 				}
 			}
 
-			if (caveman.getCenterX() < leftMargin && app.keyCode == app.LEFT) {
+			if (caveman.getCenterX() > leftMargin && app.keyCode == app.LEFT) {
 				for (int i = 0; i < obstaclesList.size(); i++) {
 					obstaclesList.get(i).goBackMap();
 				}
